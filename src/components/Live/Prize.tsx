@@ -13,7 +13,7 @@ export const PrizeSection = () => {
   const {
     data: prizes = [],
     isLoading,
-    error,
+    isError,
   } = useQuery<Prize[]>({
     queryKey: ["prizes"],
     queryFn: getPrizes,
@@ -26,6 +26,10 @@ export const PrizeSection = () => {
         <PrizeGrid />
       </div>
     );
+  }
+
+  if (isError) {
+    return <p className="text-brown-light text-center py-8">Coming soon...</p>;
   }
 
   const groupedPrizes = prizes.reduce<Record<string, Prize[]>>((acc, prize) => {

@@ -16,7 +16,7 @@ export default function Page() {
     "upcoming" | "workshops" | "day1" | "day2"
   >("upcoming");
 
-  const { data: scheduleData = [], isLoading } = useQuery({
+  const { data: scheduleData = [], isLoading, isError } = useQuery({
     queryKey: ["schedules"],
     queryFn: getSchedules,
   });
@@ -158,7 +158,13 @@ export default function Page() {
         </div>
 
         <div className="w-full space-y-4">
-          {isLoading ? <ScheduleSkeleton /> : renderEvents()}
+          {isLoading ? (
+            <ScheduleSkeleton />
+          ) : isError ? (
+            <p className="text-brown-light text-center py-12">Coming soon...</p>
+          ) : (
+            renderEvents()
+          )}
         </div>
       </div>
     </GenericLayout>

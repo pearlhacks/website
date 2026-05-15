@@ -21,6 +21,7 @@ export const getSchedules = async () => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_WEB_API}/sheet/schedules`
   );
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
   const data = await response.json();
   const schedules: Schedule[] = (data.schedules || []).map((schedule: any) => ({
     event_name: schedule.event_name,
@@ -38,6 +39,7 @@ export const getSponsors = async () => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_WEB_API}/sheet/sponsors`
   );
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
   const data = await response.json();
   const sponsors: Sponsor[] = (data.sponsors || []).map((sponsor: any) => ({
     img_url: sponsor.img_url,
@@ -52,6 +54,7 @@ export const getDirectors = async () => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_WEB_API}/sheet/directors`
   );
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
   const data = await response.json();
   const directors: Director[] = (data.directors || []).map((director: any) => ({
     name: director.name,
@@ -66,6 +69,7 @@ export const getDirectors = async () => {
 
 export const getFAQs = async () => {
   const response = await fetch(`${process.env.NEXT_PUBLIC_WEB_API}/sheet/faqs`);
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
   const data = await response.json();
   const faqs: FAQ[] = (data.faqs || []).map((faq: any) => ({
     question: faq.question,
@@ -79,6 +83,7 @@ export const getPrizes = async () => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_WEB_API}/sheet/prizes`
   );
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
   const data = await response.json();
   const prizes: Prize[] = (data.prizes || []).map((prize: any) => ({
     category: prize.category,
@@ -95,6 +100,7 @@ export const getResources = async (): Promise<{
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_WEB_API}/sheet/resources`
   );
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
   const data = await response.json();
 
   // Filter and map for resources of type 'link'

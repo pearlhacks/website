@@ -65,7 +65,7 @@ export default function Page() {
               ))
             ) : hasDevpostError ? (
               <div className="w-full col-span-full">
-                <p className="text-red-500">Error loading past projects</p>
+                <p className="text-brown-light text-center py-8">Coming soon...</p>
               </div>
             ) : (
               devpostLinksQuery.data?.map((link) => (
@@ -91,7 +91,7 @@ export default function Page() {
               ))
             ) : hasResourcesError ? (
               <div className="w-full col-span-full">
-                <p className="text-red-500">Error loading resources</p>
+                <p className="text-brown-light text-center py-8">Coming soon...</p>
               </div>
             ) : (
               categories.map((category, index) => (

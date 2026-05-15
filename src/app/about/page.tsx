@@ -113,12 +113,10 @@ export default function Page() {
         {isLoading ? (
           <TabSkeleton />
         ) : isError ? (
-          <p>Error loading directors</p>
+          <p className="text-brown-light text-center py-8 w-full">Coming soon...</p>
         ) : directors ? (
           <Tab directors={directors} />
-        ) : (
-          <p>No data available</p>
-        )}
+        ) : null}
       </div>
     </GenericLayout>
   );

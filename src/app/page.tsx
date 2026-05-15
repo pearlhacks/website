@@ -13,21 +13,17 @@ export default function Home() {
   const {
     data: sponsors,
     isLoading,
-    error,
+    isError,
   } = useQuery({
     queryKey: ["sponsors"],
     queryFn: getSponsors,
   });
 
-  if (error) {
-    return <div>Error loading sponsors</div>;
-  }
-
   return (
     <div className="w-full flex flex-col">
       <HeroSection />
       <About />
-      {sponsors && <Sponsor sponsors={sponsors} />}
+      <Sponsor sponsors={sponsors ?? []} isError={isError} />
       <Footer backgroundColor="landing" />
     </div>
   );
