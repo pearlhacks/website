@@ -151,7 +151,7 @@ export function HeroSection() {
             </div>
               <div className="flex flex-col items-center md:items-start gap-2">
                 <div className="flex flex-wrap gap-2 justify-center md:justify-start">
-                  <SecondaryButton href={register_participant}>
+                  {/* <SecondaryButton href={register_participant}>
                     HACKER REGISTRATION
                   </SecondaryButton>
                   <a
@@ -161,11 +161,11 @@ export function HeroSection() {
                     className="font-sans font-bold text-white border-2 border-brown-light bg-brown-light hover:bg-transparent transition ease-in-out p-2 px-4 uppercase rounded-full inline-flex justify-center items-center backdrop-blur"
                   >
                     JOIN DISCORD SERVER
-                  </a>
+                  </a> */}
                 </div>
-                <PrimaryButton href={register_volunteer}>
+                {/* <PrimaryButton href={register_volunteer}>
                   MENTOR & VOLUNTEER APPLICATION
-                </PrimaryButton>
+                </PrimaryButton> */}
               </div>
           </div>
         </div>
