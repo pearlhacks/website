@@ -22,7 +22,7 @@ export function HorizontalJourney({ journey }: HorizontalJourneyProps) {
   const pinned = isDesktop && !reduceMotion;
 
   return (
-    <section aria-labelledby="journey-heading" className="w-full bg-cream text-brown">
+    <section aria-labelledby="journey-heading" className="w-full bg-postal-sky text-postal-navy">
       <div className="mx-auto max-w-7xl px-4 pt-20">
         <SectionHeading id="journey-heading" title={journey.title} />
       </div>
@@ -116,7 +116,7 @@ interface JourneyPanelProps {
 function JourneyPanel({ panel, index, fill = false }: JourneyPanelProps) {
   return (
     <article
-      className={`relative overflow-hidden rounded-3xl bg-cream-light ${
+      className={`relative overflow-hidden rounded-3xl bg-postal-paper ${
         fill ? "h-full" : "md:aspect-[16/10]"
       }`}
     >
@@ -127,13 +127,13 @@ function JourneyPanel({ panel, index, fill = false }: JourneyPanelProps) {
         height={900}
         className="h-auto w-full md:absolute md:inset-0 md:h-full md:object-cover"
       />
-      <div className="relative p-6 md:m-10 md:max-w-md md:rounded-3xl md:bg-cream md:p-8 md:shadow-lg">
+      <div className="relative p-6 md:m-10 md:max-w-md md:rounded-3xl md:bg-postal-paper md:p-8 md:shadow-lg">
         <p className="font-sans font-bold">{String(index + 1).padStart(2, "0")}</p>
         <h3 className="font-sans text-2xl font-bold">{panel.title}</h3>
         <p className="mt-3 leading-relaxed">{panel.body}</p>
         {panel.link && (
           <div className="mt-5">
-            <SecondaryButton href={panel.link.href} textColor="text-brown">
+            <SecondaryButton href={panel.link.href} textColor="text-postal-navy">
               {panel.link.label}
             </SecondaryButton>
           </div>

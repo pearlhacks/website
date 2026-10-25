@@ -40,7 +40,7 @@ export function StatsPlayground({ stats }: StatsPlaygroundProps) {
     <section
       ref={sectionRef}
       aria-labelledby="stats-heading"
-      className="w-full overflow-clip bg-pink-soft text-brown"
+      className="w-full overflow-clip bg-postal-sky-dark text-postal-navy"
     >
       <div className="mx-auto max-w-7xl px-4 py-20">
         <SectionHeading id="stats-heading" title={stats.title} />
@@ -85,7 +85,7 @@ export function StatsPlayground({ stats }: StatsPlaygroundProps) {
             {stats.items.map((stat) => (
               <li
                 key={stat.label}
-                className="flex aspect-square flex-col items-center justify-center rounded-full bg-cream-light p-4 text-center shadow-md"
+                className="flex aspect-square flex-col items-center justify-center rounded-full bg-postal-paper p-4 text-center shadow-md"
               >
                 <p className="font-sans text-2xl font-bold break-words md:text-3xl">{stat.value}</p>
                 <p className="text-sm font-normal break-words">{stat.label}</p>

@@ -17,7 +17,7 @@ const TIER_SIZE: Record<Tier, string> = {
 
 export function Sponsors({ sponsors }: SponsorsProps) {
   return (
-    <section id="sponsors" aria-labelledby="sponsors-heading" className="w-full bg-cream-light text-brown">
+    <section id="sponsors" aria-labelledby="sponsors-heading" className="w-full bg-postal-paper text-postal-navy">
       <div className="mx-auto max-w-7xl px-4 py-20 text-center">
         <SectionHeading id="sponsors-heading" title={sponsors.title} />
         <FadeIn>
@@ -46,7 +46,7 @@ function SponsorLogo({ sponsor }: { sponsor: Sponsor }) {
   if (!sponsor.img_url) {
     return (
       <span
-        className={`flex items-center justify-center rounded-xl border-2 border-dashed border-brown/40 bg-black/5 px-2 text-sm font-bold ${size}`}
+        className={`flex items-center justify-center rounded-xl border-2 border-dashed border-postal-navy/40 bg-black/5 px-2 text-sm font-bold ${size}`}
       >
         {sponsor.name}
       </span>

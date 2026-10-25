@@ -29,9 +29,9 @@ export default async function Home() {
     ]);
 
   // One visible focus ring for every link and button on the page. Dark
-  // sections switch --focus-ring to cream so it shows on brown.
+  // sections switch --focus-ring to a light color so it shows on navy.
   return (
-    <div className="relative w-full bg-cream text-brown [--focus-ring:theme(colors.brown.DEFAULT)] [&_:focus-visible]:outline [&_:focus-visible]:outline-[3px] [&_:focus-visible]:outline-offset-2 [&_:focus-visible]:outline-[color:var(--focus-ring)]">
+    <div className="relative w-full bg-postal-sky text-postal-navy [--focus-ring:theme(colors.postal.navy.DEFAULT)] [&_:focus-visible]:outline [&_:focus-visible]:outline-[3px] [&_:focus-visible]:outline-offset-2 [&_:focus-visible]:outline-[color:var(--focus-ring)]">
       <Nav settings={settings} />
       <EnvelopeIntro settings={settings} />
       <About about={about} />

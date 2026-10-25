@@ -12,7 +12,7 @@ export function About({ about }: AboutProps) {
   return (
     <section
       aria-labelledby="about-heading"
-      className="w-full bg-brown text-cream [--focus-ring:theme(colors.cream.DEFAULT)]"
+      className="w-full bg-postal-navy text-postal-sky [--focus-ring:theme(colors.postal.sky.DEFAULT)]"
     >
       <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-20 md:grid-cols-2 md:py-28">
         <FadeIn className="space-y-5">
@@ -27,8 +27,8 @@ export function About({ about }: AboutProps) {
               <SecondaryButton
                 key={link.href}
                 href={link.href}
-                textColor="text-brown"
-                hoverTextColor="hover:text-cream"
+                textColor="text-postal-navy"
+                hoverTextColor="hover:text-postal-sky"
               >
                 {link.label}
               </SecondaryButton>

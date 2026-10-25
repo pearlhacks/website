@@ -149,7 +149,7 @@ export function EnvelopeIntro({ settings }: EnvelopeIntroProps) {
       id="content"
       data-envelope
       aria-labelledby="hero-title"
-      className="relative h-[440vh] w-full bg-pink-soft"
+      className="relative h-[440vh] w-full bg-postal-sky"
     >
       <style>{`@media (prefers-reduced-motion: reduce){${STATIC_LETTER}}`}</style>
       <noscript>
@@ -176,7 +176,7 @@ export function EnvelopeIntro({ settings }: EnvelopeIntroProps) {
                 {/* Points down at the mailbox. */}
                 <m.p
                   style={{ opacity: mailHintOpacity }}
-                  className="absolute inset-x-0 bottom-2 text-center font-sans text-sm font-bold uppercase tracking-[0.2em] text-brown"
+                  className="absolute inset-x-0 bottom-2 text-center font-sans text-sm font-bold uppercase tracking-[0.2em] text-postal-navy"
                 >
                   You&rsquo;ve got mail
                   <span className="mt-1 block animate-bounce text-lg motion-reduce:animate-none">&darr;</span>
@@ -199,18 +199,18 @@ export function EnvelopeIntro({ settings }: EnvelopeIntroProps) {
                   {/* Inside of the envelope, behind the paper. */}
                   <m.div
                     style={{ y: dropY, opacity: dropOpacity }}
-                    className="absolute inset-0 rounded-md bg-pink-transition"
+                    className="absolute inset-0 rounded-md bg-postal-tan-deep"
                   />
 
                   <m.div
                     ref={paperRef}
                     style={{ y: paperY, scaleX: paperScaleX, scaleY: paperScaleY }}
-                    className="absolute inset-x-[5%] bottom-[4%] top-[6%] z-10 rounded-sm bg-cream shadow-md"
+                    className="absolute inset-x-[5%] bottom-[4%] top-[6%] z-10 rounded-sm bg-postal-paper shadow-md"
                   />
                   {/* Kept apart from the paper so its text never stretches with it. */}
                   <m.div
                     style={{ y: previewY, opacity: previewOpacity }}
-                    className="absolute inset-x-[5%] bottom-[4%] top-[6%] z-10 flex flex-col items-center pt-[6%] text-center text-brown"
+                    className="absolute inset-x-[5%] bottom-[4%] top-[6%] z-10 flex flex-col items-center pt-[6%] text-center text-postal-navy"
                   >
                     <p className="font-sans text-sm italic sm:text-base">You&rsquo;re invited to</p>
                     <p className="font-sans text-2xl font-bold uppercase sm:text-4xl">{name}</p>
@@ -218,9 +218,9 @@ export function EnvelopeIntro({ settings }: EnvelopeIntroProps) {
 
                   {/* The pocket: side flaps with a V cut out, then the bottom flap. */}
                   <m.div style={{ y: dropY, opacity: dropOpacity }} className="absolute inset-0 z-20">
-                    <div className="absolute inset-0 rounded-md bg-pink [clip-path:polygon(0_0,50%_52%,100%_0,100%_100%,0_100%)]" />
-                    <div className="absolute inset-0 rounded-md bg-pink-accent [clip-path:polygon(0_100%,50%_42%,100%_100%)]" />
-                    <p className="absolute inset-x-0 bottom-[7%] text-center font-sans text-xs font-bold sm:bottom-[10%] sm:text-sm uppercase tracking-[0.3em] text-cream-light">
+                    <div className="absolute inset-0 rounded-md bg-postal-tan [clip-path:polygon(0_0,50%_52%,100%_0,100%_100%,0_100%)]" />
+                    <div className="absolute inset-0 rounded-md bg-postal-tan-dark [clip-path:polygon(0_100%,50%_42%,100%_100%)]" />
+                    <p className="absolute inset-x-0 bottom-[7%] text-center font-sans text-xs font-bold sm:bottom-[10%] sm:text-sm uppercase tracking-[0.3em] text-postal-navy">
                       {location}
                     </p>
                   </m.div>
@@ -233,10 +233,10 @@ export function EnvelopeIntro({ settings }: EnvelopeIntroProps) {
                       style={{ rotateX: flapRotate, transformPerspective: 1200 }}
                       className="absolute inset-x-0 top-0 h-[58%] origin-top [transform-style:preserve-3d]"
                     >
-                      <div className="absolute inset-0 bg-pink-light [backface-visibility:hidden] [clip-path:polygon(0_0,100%_0,50%_100%)]" />
+                      <div className="absolute inset-0 bg-postal-tan-light [backface-visibility:hidden] [clip-path:polygon(0_0,100%_0,50%_100%)]" />
                       {/* Seen once the flap swings up, so its shape is mirrored. */}
-                      <div className="absolute inset-0 bg-pink-transition [backface-visibility:hidden] [clip-path:polygon(50%_0,100%_100%,0_100%)] [transform:rotateX(180deg)]" />
-                      <div className="absolute bottom-0 left-1/2 flex h-12 w-12 -translate-x-1/2 translate-y-1/2 items-center justify-center rounded-full bg-brown shadow-md ring-2 ring-brown-dark [backface-visibility:hidden] sm:h-20 sm:w-20 sm:ring-4">
+                      <div className="absolute inset-0 bg-postal-tan-deep [backface-visibility:hidden] [clip-path:polygon(50%_0,100%_100%,0_100%)] [transform:rotateX(180deg)]" />
+                      <div className="absolute bottom-0 left-1/2 flex h-12 w-12 -translate-x-1/2 translate-y-1/2 items-center justify-center rounded-full bg-postal-red shadow-md ring-2 ring-postal-red-dark [backface-visibility:hidden] sm:h-20 sm:w-20 sm:ring-4">
                         <Image src="/images/PH2026Logo.svg" alt="" width={44} height={42} className="h-7 w-7 object-contain sm:h-11 sm:w-11" />
                       </div>
                     </m.div>
@@ -247,7 +247,7 @@ export function EnvelopeIntro({ settings }: EnvelopeIntroProps) {
 
             <m.p
               style={{ opacity: openHintOpacity }}
-              className="font-sans text-sm font-bold uppercase tracking-[0.2em] text-brown"
+              className="font-sans text-sm font-bold uppercase tracking-[0.2em] text-postal-navy"
             >
               Scroll to open
               <span className="mt-2 block animate-bounce text-center text-lg motion-reduce:animate-none">
@@ -261,10 +261,10 @@ export function EnvelopeIntro({ settings }: EnvelopeIntroProps) {
             data-letter
             onFocus={showLetter}
             style={{ opacity: letterOpacity, y: letterY }}
-            className="absolute inset-0 z-10 flex min-h-[calc(100svh-4rem)] items-center justify-center bg-cream px-4 py-16 text-center text-brown"
+            className="absolute inset-0 z-10 flex min-h-[calc(100svh-4rem)] items-center justify-center bg-postal-paper px-4 py-16 text-center text-postal-navy"
           >
             <div className="max-w-xl">
-              <p className="font-sans font-bold italic text-brown-dark">{tagline}</p>
+              <p className="font-sans font-bold italic text-postal-red-dark">{tagline}</p>
               <p className="mt-6 font-sans text-lg italic">You&rsquo;re invited to</p>
               <h1
                 id="hero-title"
@@ -280,7 +280,7 @@ export function EnvelopeIntro({ settings }: EnvelopeIntroProps) {
               </div>
               {apply.href && (
                 <div className="mt-8">
-                  <SecondaryButton href={apply.href} textColor="text-brown">
+                  <SecondaryButton href={apply.href} textColor="text-postal-navy">
                     {apply.label}
                   </SecondaryButton>
                 </div>

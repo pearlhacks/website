@@ -9,7 +9,7 @@ export function SectionHeading({ id, title, light = false }: SectionHeadingProps
     <h2
       id={id}
       className={`font-sans font-bold text-3xl md:text-4xl text-balance break-words ${
-        light ? "text-cream" : "text-brown"
+        light ? "text-postal-sky" : "text-postal-navy"
       }`}
     >
       {title}

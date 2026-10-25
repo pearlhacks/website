@@ -14,12 +14,12 @@ const PREVIEW_COUNT = 5;
 // Native <details>: opens and closes with zero JavaScript.
 export function FAQPreview({ faq }: FAQPreviewProps) {
   return (
-    <section aria-labelledby="faq-heading" className="w-full bg-cream text-brown">
+    <section aria-labelledby="faq-heading" className="w-full bg-postal-sky text-postal-navy">
       <div className="mx-auto max-w-3xl px-4 py-20">
         <SectionHeading id="faq-heading" title={faq.title} />
         <FadeIn className="mt-8 space-y-3">
           {faq.items.slice(0, PREVIEW_COUNT).map((item) => (
-            <details key={item.question} className="group rounded-2xl bg-cream-light shadow-sm">
+            <details key={item.question} className="group rounded-2xl bg-postal-paper shadow-sm">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-5 font-bold [&::-webkit-details-marker]:hidden">
                 <span>{item.question}</span>
                 <PlusIcon className="h-5 w-5 shrink-0 transition-transform group-open:rotate-45" />
@@ -32,7 +32,7 @@ export function FAQPreview({ faq }: FAQPreviewProps) {
           ))}
         </FadeIn>
         <div className="mt-8">
-          <SecondaryButton href={faq.link.href} textColor="text-brown">
+          <SecondaryButton href={faq.link.href} textColor="text-postal-navy">
             {faq.link.label}
           </SecondaryButton>
         </div>

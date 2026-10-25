@@ -25,7 +25,7 @@ const SOCIAL_ICONS: Record<string, JSX.Element> = {
 
 export function Footer({ footer, name }: FooterProps) {
   return (
-    <footer className="w-full bg-brown text-cream [--focus-ring:theme(colors.cream.DEFAULT)]">
+    <footer className="w-full bg-postal-navy text-postal-sky [--focus-ring:theme(colors.postal.sky.DEFAULT)]">
       <Image src="/art/spot/footer.webp" alt="" width={1600} height={800} className="h-auto w-full" />
       <div className="mx-auto max-w-7xl space-y-8 px-4 py-12">
         <div className="grid gap-8 md:grid-cols-3">
@@ -39,7 +39,7 @@ export function Footer({ footer, name }: FooterProps) {
             </div>
           ))}
         </div>
-        <div className="flex flex-col items-center justify-between gap-4 border-t border-cream/30 pt-6 md:flex-row">
+        <div className="flex flex-col items-center justify-between gap-4 border-t border-postal-sky/30 pt-6 md:flex-row">
           <p className="flex items-center gap-1">
             Made with <HeartIcon className="h-4 w-4" />
             <span className="sr-only">love</span> by {name}
@@ -50,7 +50,7 @@ export function Footer({ footer, name }: FooterProps) {
                 <a
                   href={social.href}
                   aria-label={social.label}
-                  className="block rounded-full p-1 hover:text-pink-light transition ease-in-out"
+                  className="block rounded-full p-1 hover:text-postal-blue transition ease-in-out"
                 >
                   {SOCIAL_ICONS[social.icon] ?? social.label}
                 </a>

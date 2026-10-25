@@ -15,7 +15,7 @@ export function Nav({ settings }: NavProps) {
     <li key={link.href}>
       <Link
         href={link.href}
-        className="block py-2 font-sans font-bold hover:text-brown-light transition ease-in-out"
+        className="block py-2 font-sans font-bold hover:text-postal-blue transition ease-in-out"
       >
         {link.label}
       </Link>
@@ -27,11 +27,11 @@ export function Nav({ settings }: NavProps) {
       {/* First tab stop: lets keyboard users jump past the nav. */}
       <a
         href="#content"
-        className="sr-only font-sans font-bold focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-[70] focus:rounded-full focus:bg-cream focus:px-4 focus:py-2"
+        className="sr-only font-sans font-bold focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-[70] focus:rounded-full focus:bg-postal-paper focus:px-4 focus:py-2"
       >
         Skip to content
       </a>
-      <header className="sticky top-0 z-50 w-full bg-cream text-brown shadow-sm">
+      <header className="sticky top-0 z-50 w-full bg-postal-navy text-postal-paper shadow-sm [--focus-ring:theme(colors.postal.paper)]">
         {/* Right padding leaves room for the MLH badge hanging over the bar. */}
         <div className="relative mx-auto flex h-16 max-w-7xl items-center justify-between px-4 pr-24 md:pr-32">
           <Link href="/" className="flex items-center gap-2 font-sans font-bold text-lg">
@@ -42,7 +42,7 @@ export function Nav({ settings }: NavProps) {
           <nav aria-label="Main" className="hidden md:flex items-center gap-6">
             <ul className="flex gap-5">{links}</ul>
             {apply.href && (
-              <SecondaryButton href={apply.href} textColor="text-brown">
+              <SecondaryButton href={apply.href} textColor="text-postal-navy">
                 {apply.label}
               </SecondaryButton>
             )}
@@ -55,11 +55,11 @@ export function Nav({ settings }: NavProps) {
               <Bars3Icon className="h-6 w-6 group-open:hidden" />
               <XMarkIcon className="hidden h-6 w-6 group-open:block" />
             </summary>
-            <nav aria-label="Main" className="absolute inset-x-0 top-full bg-cream px-4 pb-6 shadow-md">
+            <nav aria-label="Main" className="absolute inset-x-0 top-full bg-postal-navy px-4 pb-6 shadow-md">
               <ul>{links}</ul>
               {apply.href && (
                 <div className="mt-4">
-                  <SecondaryButton href={apply.href} textColor="text-brown">
+                  <SecondaryButton href={apply.href} textColor="text-postal-navy">
                     {apply.label}
                   </SecondaryButton>
                 </div>
