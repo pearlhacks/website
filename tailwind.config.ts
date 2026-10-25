@@ -15,6 +15,17 @@ const config: Config = {
       backgroundImage: {
         landing: "url(/images/landing/PH2026_WebsiteLanding.svg')",
       },
+      keyframes: {
+        // Slides a track made of two identical halves along by one half, so
+        // the loop is seamless.
+        marquee: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(-50%)" },
+        },
+      },
+      animation: {
+        marquee: "marquee 45s linear infinite",
+      },
       colors: {
         // Primary brand colors - browns
         brown: {

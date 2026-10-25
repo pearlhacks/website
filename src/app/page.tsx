@@ -5,7 +5,7 @@ import { About } from "@/components/Sections/About";
 import { FAQ } from "@/components/Sections/FAQ";
 import { Footer } from "@/components/Sections/Footer";
 import { Nav } from "@/components/Sections/Nav";
-import { Sponsors } from "@/components/Sections/Sponsors";
+import { SponsorBand } from "@/components/Sections/SponsorBand";
 import { Team } from "@/components/Sections/Team";
 import { Weekend } from "@/components/Sections/Weekend";
 import {
@@ -37,7 +37,8 @@ export default async function Home() {
   // The whole site is this one scroll; the nav jumps to sections by id. The
   // order follows the questions a visitor has: what and when (the letter),
   // is it for me, what would I do, what's the weekend like, is it worth it,
-  // who's behind it, anything else.
+  // who's behind it, anything else. Sponsor bands run between sections
+  // instead of a sponsors section of their own.
   //
   // One visible focus ring for every link and button on the page. Dark
   // sections switch --focus-ring to a light color so it shows on navy.
@@ -46,11 +47,13 @@ export default async function Home() {
       <Nav settings={settings} />
       <EnvelopeIntro settings={settings} />
       <About about={about} />
+      <SponsorBand sponsors={sponsors} />
       <MailRoute programs={programs} />
       <Weekend weekend={weekend} />
+      <SponsorBand sponsors={sponsors} reverse repeat />
       <StatsPlayground stats={stats} />
-      <Sponsors sponsors={sponsors} />
       <Team team={team} />
+      <SponsorBand sponsors={sponsors} repeat />
       <FAQ faq={faq} />
       <Footer footer={footer} name={settings.name} />
     </div>
