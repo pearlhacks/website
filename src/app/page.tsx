@@ -1,5 +1,5 @@
 import { EnvelopeIntro } from "@/components/Scroll/EnvelopeIntro";
-import { HorizontalJourney } from "@/components/Scroll/HorizontalJourney";
+import { MailRoute } from "@/components/Scroll/MailRoute";
 import { StatsPlayground } from "@/components/Scroll/StatsPlayground";
 import { About } from "@/components/Sections/About";
 import { FAQPreview } from "@/components/Sections/FAQPreview";
@@ -35,7 +35,7 @@ export default async function Home() {
       <Nav settings={settings} />
       <EnvelopeIntro settings={settings} />
       <About about={about} />
-      <HorizontalJourney journey={journey} />
+      <MailRoute journey={journey} />
       <StatsPlayground stats={stats} />
       <Sponsors sponsors={sponsors} />
       <FAQPreview faq={faq} />
