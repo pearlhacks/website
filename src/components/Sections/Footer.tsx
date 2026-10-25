@@ -28,7 +28,7 @@ export function Footer({ footer, name }: FooterProps) {
     <footer className="w-full bg-postal-navy text-postal-sky [--focus-ring:theme(colors.postal.sky.DEFAULT)]">
       <Image src="/art/spot/footer.webp" alt="" width={1600} height={800} className="h-auto w-full" />
       <div className="mx-auto max-w-7xl space-y-8 px-4 py-12">
-        <div className="grid gap-8 md:grid-cols-3">
+        <div className="grid gap-8 md:grid-cols-2">
           {footer.columns.map((column) => (
             <div key={column.title} className="space-y-2">
               <h2 className="font-sans font-bold uppercase text-white break-words">{column.title}</h2>

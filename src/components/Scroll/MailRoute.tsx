@@ -11,14 +11,13 @@ import {
   useReducedMotion,
   useScroll,
 } from "motion/react";
-import { SecondaryButton } from "@/components/Buttons/SecondaryButton";
 import { DotPlaceholder } from "@/components/Scroll/DotPlaceholder";
 import { FadeIn } from "@/components/Scroll/FadeIn";
 import { SectionHeading } from "@/components/UI/SectionHeading";
-import { Journey, JourneyPanel } from "@/lib/content";
+import { Program, Programs } from "@/lib/content";
 
 interface MailRouteProps {
-  journey: Journey;
+  programs: Programs;
 }
 
 interface Point {
@@ -60,7 +59,7 @@ function routePath(points: Point[]) {
 // After hydration a dotted route is drawn through them, and Dot carries the
 // envelope along it, staying level with the middle of the screen. With
 // reduced motion the route is drawn in full and Dot stays out of the way.
-export function MailRoute({ journey }: MailRouteProps) {
+export function MailRoute({ programs }: MailRouteProps) {
   const boxRef = useRef<HTMLDivElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
   const samples = useRef<Sample[]>([]);
@@ -145,9 +144,14 @@ export function MailRoute({ journey }: MailRouteProps) {
   }, [route, place, progress]);
 
   return (
-    <section aria-labelledby="journey-heading" className="w-full overflow-clip bg-postal-sky text-postal-navy">
+    <section
+      id="programs"
+      aria-labelledby="programs-heading"
+      className="w-full scroll-mt-16 overflow-clip bg-postal-sky text-postal-navy"
+    >
       <div className="mx-auto max-w-5xl px-4 py-20">
-        <SectionHeading id="journey-heading" title={journey.title} />
+        <SectionHeading id="programs-heading" title={programs.title} />
+        <p className="mt-4 max-w-2xl text-lg leading-relaxed">{programs.intro}</p>
         <LazyMotion features={domMin}>
           <div ref={boxRef} className="relative mt-12">
             {route && (
@@ -179,10 +183,10 @@ export function MailRoute({ journey }: MailRouteProps) {
             )}
 
             <ol className="relative space-y-16 md:space-y-24">
-              {journey.panels.map((panel, index) => (
+              {programs.items.map((program, index) => (
                 <Stop
-                  key={panel.title}
-                  panel={panel}
+                  key={program.title}
+                  program={program}
                   index={index}
                   progress={progress}
                   at={route?.stops[index] ?? null}
@@ -208,7 +212,7 @@ export function MailRoute({ journey }: MailRouteProps) {
 }
 
 interface StopProps {
-  panel: JourneyPanel;
+  program: Program;
   index: number;
   progress: MotionValue<number>;
   /** Share of the route where Dot reaches this stop; null until measured. */
@@ -217,7 +221,7 @@ interface StopProps {
 
 // Cards alternate sides on desktop, with the marker in the middle of the empty
 // half beside them. On phones the markers run down the left edge.
-function Stop({ panel, index, progress, at }: StopProps) {
+function Stop({ program, index, progress, at }: StopProps) {
   const reduceMotion = useReducedMotion();
   const [reached, setReached] = useState(false);
   useMotionValueEvent(progress, "change", (p) => setReached(at !== null && p >= at));
@@ -247,18 +251,16 @@ function Stop({ panel, index, progress, at }: StopProps) {
 
       <FadeIn>
         <article className="rounded-3xl bg-postal-paper p-6 shadow-md md:p-8">
-          <p className="font-sans font-bold uppercase tracking-[0.2em] text-postal-red-dark">
-            Stop {String(index + 1).padStart(2, "0")}
+          <p className="font-sans text-sm font-bold uppercase tracking-[0.2em] text-postal-red-dark">
+            Stop {String(index + 1).padStart(2, "0")} · {program.label}
           </p>
-          <h3 className="mt-1 font-sans text-2xl font-bold">{panel.title}</h3>
-          <p className="mt-3 leading-relaxed">{panel.body}</p>
-          {panel.link && (
-            <div className="mt-5">
-              <SecondaryButton href={panel.link.href} textColor="text-postal-navy">
-                {panel.link.label}
-              </SecondaryButton>
-            </div>
-          )}
+          <h3 className="mt-1 font-sans text-2xl font-bold">{program.title}</h3>
+          <p className="mt-3 leading-relaxed">{program.body}</p>
+          <ul className="mt-3 list-disc space-y-1 pl-5 text-sm">
+            {program.points.map((point) => (
+              <li key={point}>{point}</li>
+            ))}
+          </ul>
         </article>
       </FadeIn>
     </li>

@@ -63,7 +63,8 @@ export default function RootLayoutClient({
 
   return (
     <QueryClientProvider client={queryClient}>
-      <html lang="en">
+      {/* Lets Next.js pause smooth scrolling (globals.css) while it changes pages. */}
+      <html lang="en" data-scroll-behavior="smooth">
         <body>
           <main className="min-h-screen font-body font-light flex flex-col items-center bg-background-transition">
             <ScrollToTopButton />

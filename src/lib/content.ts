@@ -1,5 +1,5 @@
 import site from "@/content/site.json";
-import { FAQ, Sponsor } from "@/utils/Types";
+import { Director, FAQ, Sponsor } from "@/utils/Types";
 import { getTiers } from "@/utils/helpers";
 
 // The only module that loads homepage content. Every getter is async so the
@@ -27,18 +27,29 @@ export interface Settings {
 export interface About {
   title: string;
   paragraphs: string[];
+  inclusivity: { title: string; body: string };
   links: LinkItem[];
 }
 
-export interface JourneyPanel {
+export interface Program {
+  /** "Track" or "Focus Pathway". */
+  label: string;
   title: string;
   body: string;
-  link: LinkItem | null;
+  points: string[];
 }
 
-export interface Journey {
+export interface Programs {
   title: string;
-  panels: JourneyPanel[];
+  intro: string;
+  items: Program[];
+}
+
+export interface Weekend {
+  title: string;
+  intro: string;
+  /** The shape of the weekend, in order. Times live on the event portal. */
+  steps: { title: string; body: string }[];
 }
 
 export interface Stats {
@@ -53,9 +64,15 @@ export interface Sponsors {
   items: Sponsor[];
 }
 
-export interface FAQPreview {
+export interface Team {
   title: string;
-  link: LinkItem;
+  /** Same shape as the directors sheet, so the API can replace this later. */
+  members: Director[];
+}
+
+export interface FAQSection {
+  title: string;
+  /** Shown grouped by category, in the order categories first appear. */
   items: FAQ[];
 }
 
@@ -73,8 +90,12 @@ export async function getAbout(): Promise<About> {
   return site.about;
 }
 
-export async function getJourney(): Promise<Journey> {
-  return site.journey;
+export async function getPrograms(): Promise<Programs> {
+  return site.programs;
+}
+
+export async function getWeekend(): Promise<Weekend> {
+  return site.weekend;
 }
 
 export async function getStats(): Promise<Stats> {
@@ -91,7 +112,11 @@ export async function getSponsors(): Promise<Sponsors> {
   };
 }
 
-export async function getFAQ(): Promise<FAQPreview> {
+export async function getTeam(): Promise<Team> {
+  return site.team;
+}
+
+export async function getFAQ(): Promise<FAQSection> {
   return site.faq;
 }
 

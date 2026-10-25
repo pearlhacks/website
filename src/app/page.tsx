@@ -2,32 +2,43 @@ import { EnvelopeIntro } from "@/components/Scroll/EnvelopeIntro";
 import { MailRoute } from "@/components/Scroll/MailRoute";
 import { StatsPlayground } from "@/components/Scroll/StatsPlayground";
 import { About } from "@/components/Sections/About";
-import { FAQPreview } from "@/components/Sections/FAQPreview";
+import { FAQ } from "@/components/Sections/FAQ";
 import { Footer } from "@/components/Sections/Footer";
 import { Nav } from "@/components/Sections/Nav";
 import { Sponsors } from "@/components/Sections/Sponsors";
+import { Team } from "@/components/Sections/Team";
+import { Weekend } from "@/components/Sections/Weekend";
 import {
   getAbout,
   getFAQ,
   getFooter,
-  getJourney,
+  getPrograms,
   getSettings,
   getSponsors,
   getStats,
+  getTeam,
+  getWeekend,
 } from "@/lib/content";
 
 export default async function Home() {
-  const [settings, about, journey, stats, sponsors, faq, footer] =
+  const [settings, about, programs, weekend, stats, sponsors, team, faq, footer] =
     await Promise.all([
       getSettings(),
       getAbout(),
-      getJourney(),
+      getPrograms(),
+      getWeekend(),
       getStats(),
       getSponsors(),
+      getTeam(),
       getFAQ(),
       getFooter(),
     ]);
 
+  // The whole site is this one scroll; the nav jumps to sections by id. The
+  // order follows the questions a visitor has: what and when (the letter),
+  // is it for me, what would I do, what's the weekend like, is it worth it,
+  // who's behind it, anything else.
+  //
   // One visible focus ring for every link and button on the page. Dark
   // sections switch --focus-ring to a light color so it shows on navy.
   return (
@@ -35,10 +46,12 @@ export default async function Home() {
       <Nav settings={settings} />
       <EnvelopeIntro settings={settings} />
       <About about={about} />
-      <MailRoute journey={journey} />
+      <MailRoute programs={programs} />
+      <Weekend weekend={weekend} />
       <StatsPlayground stats={stats} />
       <Sponsors sponsors={sponsors} />
-      <FAQPreview faq={faq} />
+      <Team team={team} />
+      <FAQ faq={faq} />
       <Footer footer={footer} name={settings.name} />
     </div>
   );

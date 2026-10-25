@@ -7,11 +7,11 @@
     "location": "UNC-Chapel Hill",
     "apply": { "label": "Apply", "href": "#" },
     "nav": [
-      { "label": "About", "href": "/about" },
-      { "label": "Programs", "href": "/programs" },
-      { "label": "FAQ", "href": "/faq" },
-      { "label": "Resources", "href": "/resources" },
-      { "label": "Schedule", "href": "/schedule" }
+      { "label": "About", "href": "/#about" },
+      { "label": "Programs", "href": "/#programs" },
+      { "label": "Team", "href": "/#team" },
+      { "label": "Sponsors", "href": "/#sponsors" },
+      { "label": "FAQ", "href": "/#faq" }
     ],
     "mlhBadge": {
       "href": "https://mlh.io/na?utm_source=na-hackathon&utm_medium=TrustBadge&utm_campaign=2026-season&utm_content=white",
@@ -25,18 +25,70 @@
       "Pearl Hacks is a hackathon that celebrates women and gender-nonconforming individuals in tech. In alignment with university guidelines, the event is open to all participants, while maintaining a supportive environment that centers historically underrepresented genders in technology. We especially cater to first-time hackers who are looking for a supportive environment to explore technology.",
       "Participants work in teams to create incredible projects in 24 hours with the help of excellent mentors, workshops, and tech talks. All the while, they’ll get to meet some fantastic people, enjoy fun games, collect swag, and eat free food."
     ],
+    "inclusivity": {
+      "title": "Inclusivity statement",
+      "body": "Pearl Hacks is an event designed to uplift and center women and gender non-conforming individuals in tech. We expect all of our mentors, volunteers, participants, directors, sponsors, judges, and visitors to be respectful of our participants’ gender identities and expressions."
+    },
     "links": [
-      { "label": "Learn more", "href": "/about" },
-      { "label": "Show past projects", "href": "https://pearlhacks2025.devpost.com/" }
+      { "label": "Our story", "href": "https://maeganclawges.com/web/pearlhacks.html" },
+      { "label": "Past projects", "href": "https://pearlhacks2025.devpost.com/" }
     ]
   },
-  "journey": {
-    "title": "[JOURNEY HEADING]",
-    "panels": [
-      { "title": "Tracks", "body": "[TRACKS COPY]", "link": { "label": "See programs", "href": "/programs" } },
-      { "title": "Prizes", "body": "[PRIZES COPY]", "link": null },
-      { "title": "Workshops", "body": "[WORKSHOPS COPY]", "link": { "label": "See schedule", "href": "/schedule" } },
-      { "title": "Timeline", "body": "[TIMELINE COPY]", "link": { "label": "See schedule", "href": "/schedule" } }
+  "programs": {
+    "title": "Programs",
+    "intro": "Tracks are where your project competes for prizes. Focus Pathways add workshops, resources and mentorship in one area of tech, and don’t have prizes of their own.",
+    "items": [
+      {
+        "label": "Track",
+        "title": "General Track",
+        "body": "For all hackers, from seasoned coders to first-time builders. Bring any idea to life with software, hardware, design, or a mix of all three.",
+        "points": [
+          "Everyone is automatically entered.",
+          "You can also submit to sponsor challenges.",
+          "Eligible for 1st, 2nd and 3rd place prizes."
+        ]
+      },
+      {
+        "label": "Track",
+        "title": "Beginner Track",
+        "body": "New to hackathons or computer science? Get beginner-friendly workshops, resources and mentorship to build confidence and explore how computing connects with your passions.",
+        "points": [
+          "For hackers new to hackathons and/or computer science.",
+          "You can still enter sponsor challenges.",
+          "Eligible for the dedicated Beginner Track Prize."
+        ]
+      },
+      {
+        "label": "Focus Pathway",
+        "title": "UX/UI Focus Pathway",
+        "body": "For hackers who love design and user experience. Learn tools like Figma and web design principles through guided workshops and hands-on sessions.",
+        "points": [
+          "Open to everyone, no experience needed.",
+          "Exclusive UX/UI workshops.",
+          "Sponsor challenges and the General Track still apply; no separate prize."
+        ]
+      },
+      {
+        "label": "Focus Pathway",
+        "title": "AI Focus Pathway",
+        "body": "Experiment with AI and machine learning, from chatbots to computer vision to natural language processing, through dedicated workshops and mentorship.",
+        "points": [
+          "AI or machine learning must be a core part of your project.",
+          "AI tools can help, but the creativity should be yours.",
+          "Sponsor challenges and the General Track still apply; no separate prize."
+        ]
+      }
+    ]
+  },
+  "weekend": {
+    "title": "The weekend",
+    "intro": "[WEEKEND INTRO]",
+    "steps": [
+      { "title": "Check-in", "body": "[CHECK-IN COPY]" },
+      { "title": "Opening ceremony", "body": "[OPENING COPY]" },
+      { "title": "Hacking & workshops", "body": "[HACKING COPY]" },
+      { "title": "Judging", "body": "[JUDGING COPY]" },
+      { "title": "Closing ceremony", "body": "[CLOSING COPY]" }
     ]
   },
   "stats": {
@@ -47,7 +99,10 @@
       { "value": "[STAT 3]", "label": "[STAT 3 LABEL]" },
       { "value": "[STAT 4]", "label": "[STAT 4 LABEL]" }
     ],
-    "photos": [{ "alt": "[PHOTO 1 ALT TEXT]" }, { "alt": "[PHOTO 2 ALT TEXT]" }]
+    "photos": [
+      { "alt": "[PHOTO 1 ALT TEXT]" },
+      { "alt": "[PHOTO 2 ALT TEXT]" }
+    ]
   },
   "sponsors": {
     "title": "Sponsors",
@@ -60,16 +115,120 @@
       { "name": "[SPONSOR 6]", "url": "", "img_url": "", "tier": "silver" }
     ]
   },
+  "team": {
+    "title": "Meet the team",
+    "members": [
+      {
+        "name": "[NAME 1]",
+        "pronouns": "[PRONOUNS]",
+        "role": "[ROLE]",
+        "chair": true,
+        "department": "Chairs",
+        "image_url": null
+      },
+      {
+        "name": "[NAME 2]",
+        "pronouns": "[PRONOUNS]",
+        "role": "[ROLE]",
+        "chair": true,
+        "department": "Chairs",
+        "image_url": null
+      },
+      {
+        "name": "[NAME 3]",
+        "pronouns": "[PRONOUNS]",
+        "role": "[ROLE]",
+        "chair": false,
+        "department": "Marketing",
+        "image_url": null
+      },
+      {
+        "name": "[NAME 4]",
+        "pronouns": "[PRONOUNS]",
+        "role": "[ROLE]",
+        "chair": false,
+        "department": "Marketing",
+        "image_url": null
+      },
+      {
+        "name": "[NAME 5]",
+        "pronouns": "[PRONOUNS]",
+        "role": "[ROLE]",
+        "chair": false,
+        "department": "Experience",
+        "image_url": null
+      },
+      {
+        "name": "[NAME 6]",
+        "pronouns": "[PRONOUNS]",
+        "role": "[ROLE]",
+        "chair": false,
+        "department": "Experience",
+        "image_url": null
+      },
+      {
+        "name": "[NAME 7]",
+        "pronouns": "[PRONOUNS]",
+        "role": "[ROLE]",
+        "chair": false,
+        "department": "Logistics",
+        "image_url": null
+      },
+      {
+        "name": "[NAME 8]",
+        "pronouns": "[PRONOUNS]",
+        "role": "[ROLE]",
+        "chair": false,
+        "department": "Logistics",
+        "image_url": null
+      },
+      {
+        "name": "[NAME 9]",
+        "pronouns": "[PRONOUNS]",
+        "role": "[ROLE]",
+        "chair": false,
+        "department": "Sponsorship",
+        "image_url": null
+      },
+      {
+        "name": "[NAME 10]",
+        "pronouns": "[PRONOUNS]",
+        "role": "[ROLE]",
+        "chair": false,
+        "department": "Sponsorship",
+        "image_url": null
+      },
+      {
+        "name": "[NAME 11]",
+        "pronouns": "[PRONOUNS]",
+        "role": "[ROLE]",
+        "chair": false,
+        "department": "Experience",
+        "image_url": null
+      },
+      {
+        "name": "[NAME 12]",
+        "pronouns": "[PRONOUNS]",
+        "role": "[ROLE]",
+        "chair": false,
+        "department": "Logistics",
+        "image_url": null
+      }
+    ]
+  },
   "faq": {
     "title": "Frequently asked questions",
-    "link": { "label": "See all FAQs", "href": "/faq" },
     "items": [
-      { "question": "[QUESTION 1]", "answer": "[ANSWER 1]", "category": "General FAQs" },
-      { "question": "[QUESTION 2]", "answer": "[ANSWER 2]", "category": "General FAQs" },
+      { "question": "[QUESTION 1]", "answer": "[ANSWER 1]", "category": "Beginner's FAQs" },
+      { "question": "[QUESTION 2]", "answer": "[ANSWER 2]", "category": "Beginner's FAQs" },
       { "question": "[QUESTION 3]", "answer": "[ANSWER 3]", "category": "General FAQs" },
       { "question": "[QUESTION 4]", "answer": "[ANSWER 4]", "category": "General FAQs" },
-      { "question": "[QUESTION 5]", "answer": "[ANSWER 5]", "category": "General FAQs" },
-      { "question": "[QUESTION 6]", "answer": "[ANSWER 6]", "category": "General FAQs" }
+      { "question": "[QUESTION 5]", "answer": "[ANSWER 5]", "category": "Guidelines" },
+      { "question": "[QUESTION 6]", "answer": "[ANSWER 6]", "category": "Guidelines" },
+      { "question": "[QUESTION 7]", "answer": "[ANSWER 7]", "category": "Transportation" },
+      { "question": "[QUESTION 8]", "answer": "[ANSWER 8]", "category": "Transportation" },
+      { "question": "[QUESTION 9]", "answer": "[ANSWER 9]", "category": "Reimbursements" },
+      { "question": "[QUESTION 10]", "answer": "[ANSWER 10]", "category": "Reimbursements" }
     ]
   },
   "footer": {
@@ -81,10 +240,6 @@
       {
         "title": "Administration",
         "body": "Pearl Hacks abides by [the MLH Code of Conduct](https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md). If you have any questions or feedback, please contact us at [questions@pearlhacks.com](mailto:questions@pearlhacks.com)."
-      },
-      {
-        "title": "Inclusivity Statement",
-        "body": "Pearl Hacks is an event designed to uplift women and gender non-conforming students in tech. We expect all mentors, volunteers, participants, directors, sponsors, judges, and visitors to be respectful of our participants' identities and expressions."
       }
     ],
     "socials": [

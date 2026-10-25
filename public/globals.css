@@ -87,3 +87,11 @@ body {
     text-wrap: balance;
   }
 }
+
+/* The homepage nav jumps to sections on the same page; glide there unless the
+   visitor prefers reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
