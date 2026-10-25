@@ -178,7 +178,8 @@ export function EnvelopeIntro({ settings }: EnvelopeIntroProps) {
                   style={{ opacity: mailHintOpacity }}
                   className="absolute inset-x-0 bottom-2 text-center font-sans text-sm font-bold uppercase tracking-[0.2em] text-postal-navy"
                 >
-                  You&rsquo;ve got mail
+                  {/* Says to scroll, so visitors don't try clicking the mailbox. */}
+                  You&rsquo;ve got mail <span className="whitespace-nowrap">(Scroll!)</span>
                   <span className="mt-1 block animate-bounce text-lg motion-reduce:animate-none">&darr;</span>
                 </m.p>
               </div>
