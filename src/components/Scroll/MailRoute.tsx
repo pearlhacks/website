@@ -222,11 +222,8 @@ interface StopProps {
 // Cards alternate sides on desktop, with the marker in the middle of the empty
 // half beside them. On phones the markers run down the left edge.
 function Stop({ program, index, progress, at }: StopProps) {
-  const reduceMotion = useReducedMotion();
   const [reached, setReached] = useState(false);
   useMotionValueEvent(progress, "change", (p) => setReached(at !== null && p >= at));
-  // Without Dot travelling, every stop starts delivered.
-  const delivered = reached || Boolean(reduceMotion);
   const right = index % 2 === 1;
 
   return (
@@ -240,9 +237,11 @@ function Stop({ program, index, progress, at }: StopProps) {
         }`}
       >
         {String(index + 1).padStart(2, "0")}
+        {/* Without Dot travelling (reduced motion), every stop starts delivered.
+            Done in CSS so the server and browser render the same markup. */}
         <span
-          className={`absolute inset-[-3px] flex items-center justify-center rounded-full bg-postal-red text-postal-paper transition duration-300 motion-reduce:transition-none ${
-            delivered ? "scale-100 opacity-100" : "scale-150 opacity-0"
+          className={`absolute inset-[-3px] flex items-center justify-center rounded-full bg-postal-red text-postal-paper transition duration-300 motion-reduce:scale-100 motion-reduce:opacity-100 motion-reduce:transition-none ${
+            reached ? "scale-100 opacity-100" : "scale-150 opacity-0"
           }`}
         >
           {String(index + 1).padStart(2, "0")}
