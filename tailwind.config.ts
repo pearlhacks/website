@@ -22,9 +22,15 @@ const config: Config = {
           from: { transform: "translateX(0)" },
           to: { transform: "translateX(-50%)" },
         },
+        // Lifts a line of text into place, for text that changes.
+        rise: {
+          from: { opacity: "0", transform: "translateY(0.25em)" },
+          to: { opacity: "1", transform: "none" },
+        },
       },
       animation: {
         marquee: "marquee 45s linear infinite",
+        rise: "rise 0.3s ease-out",
       },
       colors: {
         // Primary brand colors - browns

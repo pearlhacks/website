@@ -3,9 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import * as m from "motion/react-m";
-import { LazyMotion, inView, useReducedMotion } from "motion/react";
+import { LazyMotion, useReducedMotion } from "motion/react";
 import { animate } from "motion/mini";
 import { PopIn } from "@/components/Scroll/PopIn";
+import { playOnView } from "@/components/Scroll/playOnView";
 import { useMediaQuery } from "@/components/Scroll/useMediaQuery";
 import { SectionHeading } from "@/components/UI/SectionHeading";
 import { Stats } from "@/lib/content";
@@ -37,32 +38,29 @@ export function StatsPlayground({ stats }: StatsPlaygroundProps) {
   const front = order[order.length - 1];
   const cardsRef = useRef<HTMLDivElement>(null);
 
-  // The first time the cards scroll into view, they turn over from face down.
-  // Like FadeIn, the server HTML shows them face up, and they only turn if
-  // they start below the fold. The turn is on an inner layer, so it doesn't
-  // fight motion over the card's own transform (tilt, drag and scale).
+  // As the cards scroll into view, they turn over from face down (see
+  // playOnView for when that plays and replays). The turn is on an inner
+  // layer, so it doesn't fight motion over the card's own transform (tilt,
+  // drag and scale).
   useEffect(() => {
     const cards = cardsRef.current;
     if (!cards || reduceMotion) return;
-    if (cards.getBoundingClientRect().top < window.innerHeight) return;
 
     const flippers = Array.from(cards.querySelectorAll<HTMLElement>("[data-flip]"));
-    for (const flipper of flippers) flipper.style.transform = "perspective(1000px) rotateY(180deg)";
-    const stop = inView(
-      cards,
-      () => {
+    return playOnView(cards, {
+      hide: () => {
+        for (const flipper of flippers) flipper.style.transform = "perspective(1000px) rotateY(180deg)";
+      },
+      play: () =>
         flippers.forEach((flipper, index) =>
           animate(
             flipper,
             { transform: ["perspective(1000px) rotateY(180deg)", "none"] },
             { duration: FLIP_DURATION, delay: index * FLIP_STAGGER, ease: [0.22, 1, 0.36, 1] }
           )
-        );
-        stop();
-      },
-      { amount: 0.35 }
-    );
-    return stop;
+        ),
+      amount: 0.35,
+    });
   }, [reduceMotion]);
 
   const bringToFront = (index: number) =>

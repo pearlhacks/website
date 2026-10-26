@@ -1,8 +1,9 @@
 "use client";
 
 import { ReactNode, useEffect, useRef } from "react";
-import { inView, useReducedMotion } from "motion/react";
+import { useReducedMotion } from "motion/react";
 import { animate } from "motion/mini";
+import { playOnView } from "@/components/Scroll/playOnView";
 
 interface HangProps {
   children: ReactNode;
@@ -11,10 +12,9 @@ interface HangProps {
   delay?: number;
 }
 
-// Lowers its content from above the first time it scrolls into view, then
-// lets it sway to rest like an ornament, swinging from its top centre. Like
-// FadeIn, the server HTML shows it in place, so nothing is hidden without
-// JavaScript, and it only moves if it starts below the fold.
+// Lowers its content from above as it scrolls into view, then lets it sway to
+// rest like an ornament, swinging from its top centre. See playOnView for
+// when it plays and replays.
 export function Hang({ children, className, delay = 0 }: HangProps) {
   const ref = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
@@ -23,14 +23,14 @@ export function Hang({ children, className, delay = 0 }: HangProps) {
     const outer = ref.current;
     const strand = outer?.firstElementChild as HTMLElement | null;
     if (!outer || !strand || reduceMotion) return;
-    if (outer.getBoundingClientRect().top < window.innerHeight) return;
 
-    strand.style.transform = "translateY(-105%)";
     // Watches the wrapper, not the strand: the strand starts above the edge
     // of its section, which clips it out of the observer's sight.
-    const stop = inView(
-      outer,
-      () => {
+    return playOnView(outer, {
+      hide: () => {
+        strand.style.transform = "translateY(-105%)";
+      },
+      play: () =>
         animate(
           strand,
           {
@@ -44,12 +44,9 @@ export function Hang({ children, className, delay = 0 }: HangProps) {
             ],
           },
           { duration: 1.8, delay, times: [0, 0.35, 0.55, 0.72, 0.87, 1], ease: [0.45, 0, 0.55, 1] }
-        );
-        stop();
-      },
-      { amount: 0.3 }
-    );
-    return stop;
+        ),
+      amount: 0.3,
+    });
   }, [delay, reduceMotion]);
 
   return (

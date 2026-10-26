@@ -88,12 +88,17 @@
   "weekend": {
     "title": "The weekend",
     "intro": "[WEEKEND INTRO]",
+    "tracking": {
+      "label": "Your weekend",
+      "carrier": "Dot Express",
+      "id": "PH27-DOT-0001"
+    },
     "steps": [
-      { "title": "Check-in", "body": "[CHECK-IN COPY]" },
-      { "title": "Opening ceremony", "body": "[OPENING COPY]" },
-      { "title": "Hacking & workshops", "body": "[HACKING COPY]" },
-      { "title": "Judging", "body": "[JUDGING COPY]" },
-      { "title": "Closing ceremony", "body": "[CLOSING COPY]" }
+      { "status": "Label created", "title": "Check-in", "body": "[CHECK-IN COPY]" },
+      { "status": "Shipped", "title": "Opening ceremony", "body": "[OPENING COPY]" },
+      { "status": "In transit", "title": "Hacking & workshops", "body": "[HACKING COPY]" },
+      { "status": "Out for delivery", "title": "Judging", "body": "[JUDGING COPY]" },
+      { "status": "Delivered", "title": "Closing ceremony", "body": "[CLOSING COPY]" }
     ]
   },
   "stats": {

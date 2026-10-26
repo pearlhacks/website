@@ -51,8 +51,19 @@ export interface Programs {
 export interface Weekend {
   title: string;
   intro: string;
-  /** The shape of the weekend, in order. Times live on the event portal. */
-  steps: { title: string; body: string }[];
+  /** The made-up parcel details at the top of the tracking card. */
+  tracking: { label: string; carrier: string; id: string };
+  /**
+   * The shape of the weekend, in order, each with a parcel-tracking status
+   * ("Shipped", "Delivered"). Times live on the event portal.
+   */
+  steps: WeekendStep[];
+}
+
+export interface WeekendStep {
+  status: string;
+  title: string;
+  body: string;
 }
 
 export interface Stats {
