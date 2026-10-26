@@ -28,6 +28,12 @@
       "title": "Inclusivity statement",
       "body": "Pearl Hacks is an event designed to uplift and center women and gender non-conforming individuals in tech. We expect all of our mentors, volunteers, participants, directors, sponsors, judges, and visitors to be respectful of our participants’ gender identities and expressions."
     },
+    "photos": [
+      { "src": "/art/about/photo-1.jpg", "alt": "The Pearl Hacks team making heart hands on a flight of campus steps" },
+      { "src": "/art/about/photo-2.jpg", "alt": "Pearl Hacks participants with their project" },
+      { "src": "/art/about/photo-3.jpg", "alt": "Pearl Hacks participants networking" },
+      { "src": "/art/about/photo-4.jpg", "alt": "Four hackers smiling with their project, Aesthetify, on a laptop" }
+    ],
     "links": [
       { "label": "Our story", "href": "https://maeganclawges.com/web/pearlhacks.html" },
       { "label": "Past projects", "href": "https://pearlhacks2025.devpost.com/" }

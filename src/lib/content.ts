@@ -28,6 +28,8 @@ export interface About {
   title: string;
   paragraphs: string[];
   inclusivity: { title: string; body: string };
+  /** Two to four, hung as stamps either side of the text. 640px-wide JPEGs keep them light. */
+  photos: { src: string; alt: string }[];
   links: LinkItem[];
 }
 
