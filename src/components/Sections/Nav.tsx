@@ -69,12 +69,13 @@ export function Nav({ settings }: NavProps) {
         </div>
       </header>
 
-      {/* MLH requires the trust badge at the top right of member events' homepages. */}
+      {/* MLH requires the trust badge at the top right of member events' homepages.
+          Fixed, so it stays in that corner while the page scrolls. */}
       <a
         href={mlhBadge.href}
         target="_blank"
         rel="noopener noreferrer"
-        className="absolute right-4 top-0 z-[60] block w-[60px] md:right-6 md:w-[84px]"
+        className="fixed right-4 top-0 z-[60] block w-[60px] md:right-6 md:w-[84px]"
       >
         <Image
           src={mlhBadge.image}

@@ -111,9 +111,13 @@ export function EnvelopeIntro({ settings }: EnvelopeIntroProps) {
   // The street and mailbox fade back as the envelope comes forward, and stay
   // as a backdrop until the letter covers them.
   const sceneOpacity = useTransform(progress, (p) => 1 - 0.6 * step(p, STEPS.scene));
-  // Dot's truck waits at the left of the street, then drives past the
-  // mailbox and off to the right at a steady speed as the page scrolls.
-  const truckX = useTransform(progress, (p) => `${-45 + 120 * through(p, STEPS.drive)}vw`);
+  // Dot's truck waits just off the left of the screen (half the screen plus
+  // a little over half its own width, from the middle), then drives past the
+  // mailbox and off the right at a steady speed once the page scrolls.
+  const truckX = useTransform(progress, (p) => {
+    const t = through(p, STEPS.drive);
+    return `calc(${-50 + 100 * t}vw + ${-60 + 120 * t}%)`;
+  });
   // The envelope starts small inside the mailbox, then is pulled up and out
   // in an arc to full size.
   const envelopeScale = useTransform(progress, (p) => 0.28 + 0.72 * step(p, STEPS.emerge));

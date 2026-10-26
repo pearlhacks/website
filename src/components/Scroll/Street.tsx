@@ -8,7 +8,7 @@ import { SCENE_FRAME } from "@/components/Scroll/Mailbox";
 interface StreetProps {
   /** Fades the street back once the envelope is out. */
   opacity: MotionValue<number>;
-  /** How far Dot's truck has driven, from the centre of the street (vw). */
+  /** How far Dot's truck has driven from the middle of the screen (a CSS length). */
   truckX: MotionValue<string>;
 }
 
@@ -100,7 +100,7 @@ export function Street({ opacity, truckX }: StreetProps) {
 
           {/* Far pavement, road with a dashed centre line, near pavement, lawn. */}
           <rect x="-2400" y={GROUND} width="5200" height={ROAD_TOP - GROUND} className="fill-postal-paper" />
-          <rect x="-2400" y={ROAD_TOP} width="5200" height={ROAD_BOTTOM - ROAD_TOP} className="fill-postal-blue" />
+          <rect x="-2400" y={ROAD_TOP} width="5200" height={ROAD_BOTTOM - ROAD_TOP} className="fill-postal-navy-light" />
           <line
             x1="-2400"
             x2="2800"
@@ -166,18 +166,19 @@ function Bush({ x, y, size }: { x: number; y: number; size: number }) {
   );
 }
 
-// A street-name sign on a pole, standing on the far pavement.
+// A street-name sign on a pole, standing on the far pavement; well below
+// the rooftops.
 function StreetSign({ x, name }: { x: number; name: string }) {
   return (
     <g>
-      <rect x={x - 3} y={GROUND - 128} width="6" height="128" className="fill-postal-navy" />
-      <rect x={x - 66} y={GROUND - 148} width="132" height="28" rx="4" className="fill-postal-navy" />
-      <rect x={x - 61} y={GROUND - 143} width="122" height="18" rx="2" fill="none" strokeWidth="1.5" className="stroke-postal-paper" />
+      <rect x={x - 2} y={GROUND - 64} width="4" height="64" className="fill-postal-navy" />
+      <rect x={x - 46} y={GROUND - 80} width="92" height="20" rx="3" className="fill-postal-navy" />
+      <rect x={x - 42.5} y={GROUND - 76.5} width="85" height="13" rx="1.5" fill="none" strokeWidth="1" className="stroke-postal-paper" />
       <text
         x={x}
-        y={GROUND - 129.5}
+        y={GROUND - 67}
         textAnchor="middle"
-        fontSize="11"
+        fontSize="8"
         className="fill-postal-paper font-sans font-bold uppercase tracking-wider"
       >
         {name}
