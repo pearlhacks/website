@@ -7,6 +7,7 @@ import { LazyMotion, domMin, useMotionValue, useScroll, useTransform } from "mot
 import { SecondaryButton } from "@/components/Buttons/SecondaryButton";
 import { Countdown } from "@/components/Scroll/Countdown";
 import { Mailbox } from "@/components/Scroll/Mailbox";
+import { Street } from "@/components/Scroll/Street";
 import { Settings } from "@/lib/content";
 
 interface EnvelopeIntroProps {
@@ -31,7 +32,7 @@ const STEPS = {
   door: [0.03, 0.13],
   emerge: [0.12, 0.3],
   flag: [0.16, 0.24],
-  mailbox: [0.2, 0.32],
+  scene: [0.2, 0.32],
   openHintIn: [0.28, 0.33],
   openHintOut: [0.37, 0.42],
   flap: [0.36, 0.49],
@@ -101,8 +102,9 @@ export function EnvelopeIntro({ settings }: EnvelopeIntroProps) {
   const doorRotate = useTransform(progress, (p) => step(p, STEPS.door) * -100);
   const doorZ = useTransform(doorRotate, (angle): number => (angle > -90 ? 20 : 5));
   const flagRotate = useTransform(progress, (p) => step(p, STEPS.flag) * -90);
-  const mailboxY = useTransform(progress, (p) => `${step(p, STEPS.mailbox) * 110}vh`);
-  const mailboxOpacity = useTransform(progress, (p) => 1 - step(p, STEPS.mailbox));
+  // The street and mailbox fade back as the envelope comes forward, and stay
+  // as a backdrop until the letter covers them.
+  const sceneOpacity = useTransform(progress, (p) => 1 - 0.6 * step(p, STEPS.scene));
   // The envelope starts small inside the mailbox, then is pulled up and out
   // in an arc to full size.
   const envelopeScale = useTransform(progress, (p) => 0.28 + 0.72 * step(p, STEPS.emerge));
@@ -176,7 +178,7 @@ export function EnvelopeIntro({ settings }: EnvelopeIntroProps) {
                 {/* Points down at the mailbox. */}
                 <m.p
                   style={{ opacity: mailHintOpacity }}
-                  className="absolute inset-x-0 bottom-2 text-center font-sans text-sm font-bold uppercase tracking-[0.2em] text-postal-navy"
+                  className="absolute inset-x-0 bottom-2 z-10 text-center font-sans text-sm font-bold uppercase tracking-[0.2em] text-postal-navy"
                 >
                   {/* Says to scroll, so visitors don't try clicking the mailbox. */}
                   You&rsquo;ve got mail <span className="whitespace-nowrap">(Scroll!)</span>
@@ -185,13 +187,8 @@ export function EnvelopeIntro({ settings }: EnvelopeIntroProps) {
               </div>
               {/* The mailbox is centered on the envelope, which starts inside it. */}
               <div className="relative aspect-[8/5] w-full">
-                <Mailbox
-                  door={doorRotate}
-                  doorZ={doorZ}
-                  flag={flagRotate}
-                  y={mailboxY}
-                  opacity={mailboxOpacity}
-                />
+                <Street opacity={sceneOpacity} />
+                <Mailbox door={doorRotate} doorZ={doorZ} flag={flagRotate} opacity={sceneOpacity} />
 
                 <m.div
                   style={{ scale: envelopeScale, y: envelopeY, rotate: envelopeRotate }}
@@ -248,7 +245,7 @@ export function EnvelopeIntro({ settings }: EnvelopeIntroProps) {
 
             <m.p
               style={{ opacity: openHintOpacity }}
-              className="font-sans text-sm font-bold uppercase tracking-[0.2em] text-postal-navy"
+              className="relative z-10 font-sans text-sm font-bold uppercase tracking-[0.2em] text-postal-navy"
             >
               Scroll to open
               <span className="mt-2 block animate-bounce text-center text-lg motion-reduce:animate-none">

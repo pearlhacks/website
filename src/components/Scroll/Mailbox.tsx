@@ -10,23 +10,23 @@ interface MailboxProps {
   doorZ: MotionValue<number>;
   /** Flag angle in degrees: 0 raised, -90 lowered along the side. */
   flag: MotionValue<number>;
-  y: MotionValue<string>;
+  /** Fades the mailbox back once the envelope is out. */
   opacity: MotionValue<number>;
 }
 
 // The art is drawn in a 400×520 box. Its door is centered at (140, 190), so
 // the frame is shifted to put that point on its parent's center, where the
-// envelope sits.
-const FRAME =
+// envelope sits. The street behind it is drawn in the same box.
+export const SCENE_FRAME =
   "absolute left-1/2 top-1/2 aspect-[400/520] w-[80%] -translate-x-[35%] -translate-y-[36.54%]";
 
 // The door is a separate layer so the envelope can sit between the inside of
-// the mailbox and its door. Both layers share the same frame and movement.
-export function Mailbox({ door, doorZ, flag, y, opacity }: MailboxProps) {
+// the mailbox and its door. Both layers share the same frame and fade.
+export function Mailbox({ door, doorZ, flag, opacity }: MailboxProps) {
   return (
     <>
-      <m.div style={{ y, opacity }} className="absolute inset-0 z-0">
-        <div className={FRAME}>
+      <m.div style={{ opacity }} className="absolute inset-0 z-0">
+        <div className={SCENE_FRAME}>
           <svg viewBox="0 0 400 520" overflow="visible" className="absolute inset-0 h-full w-full">
             {/* Post, running off the bottom of the stage. */}
             <rect x="182" y="280" width="44" height="1200" className="fill-postal-tan-deep" />
@@ -48,8 +48,8 @@ export function Mailbox({ door, doorZ, flag, y, opacity }: MailboxProps) {
         </div>
       </m.div>
 
-      <m.div style={{ y, opacity, zIndex: doorZ }} className="absolute inset-0">
-        <div className={FRAME}>
+      <m.div style={{ opacity, zIndex: doorZ }} className="absolute inset-0">
+        <div className={SCENE_FRAME}>
           <m.div
             style={{ rotateX: door, transformPerspective: 1200 }}
             className="absolute left-[10%] top-[15.38%] h-[42.31%] w-1/2 origin-bottom [transform-style:preserve-3d]"

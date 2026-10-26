@@ -22,9 +22,16 @@ const config: Config = {
           from: { transform: "translateX(0)" },
           to: { transform: "translateX(-50%)" },
         },
+        // Crosses the screen left to right, then waits off screen before the
+        // next pass.
+        drive: {
+          "0%": { transform: "translateX(-75vw)" },
+          "55%, 100%": { transform: "translateX(75vw)" },
+        },
       },
       animation: {
         marquee: "marquee 45s linear infinite",
+        drive: "drive 11s linear infinite",
       },
       colors: {
         // Primary brand colors - browns
