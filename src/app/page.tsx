@@ -50,11 +50,11 @@ export default async function Home() {
       <SponsorBand sponsors={sponsors} />
       <MailRoute programs={programs} />
       <Weekend weekend={weekend} />
-      <SponsorBand sponsors={sponsors} reverse repeat />
       <StatsPlayground stats={stats} />
       <Team team={team} />
       <SponsorBand sponsors={sponsors} repeat />
       <FAQ faq={faq} />
+      <SponsorBand sponsors={sponsors} reverse repeat />
       <Footer footer={footer} name={settings.name} />
     </div>
   );

@@ -71,8 +71,9 @@ export function About({ about }: AboutProps) {
             {paragraph}
           </p>
         ))}
-        <div className="rounded-2xl border-2 border-postal-sky/30 p-5">
-          <h3 className="font-sans font-bold">{about.inclusivity.title}</h3>
+        {/* Highlighted in Dot's warm tan, so it stands out on the navy. */}
+        <div className="rounded-2xl bg-postal-tan-light p-5 text-postal-navy shadow-lg">
+          <h3 className="font-sans font-bold text-postal-red-dark">{about.inclusivity.title}</h3>
           <p className="mt-2 leading-relaxed">{about.inclusivity.body}</p>
         </div>
         <div className="flex flex-wrap justify-center gap-3 pt-2">

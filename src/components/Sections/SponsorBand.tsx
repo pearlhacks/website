@@ -30,9 +30,10 @@ const AIRMAIL =
   "bg-[repeating-linear-gradient(-45deg,theme(colors.postal.red.DEFAULT)_0_12px,theme(colors.postal.paper)_12px_24px,theme(colors.postal.navy.DEFAULT)_24px_36px,theme(colors.postal.paper)_36px_48px)]";
 
 // A strip between sections with sponsor logos sliding past, edged like an
-// airmail envelope. The motion is a CSS animation, so it costs no JavaScript.
-// It pauses on hover or focus, and with reduced motion it stands still and
-// scrolls sideways instead.
+// airmail envelope. It has no visible title; screen readers hear it named
+// after the sponsors title. The motion is a CSS animation, so it costs no
+// JavaScript. It pauses on hover or focus, and with reduced motion it stands
+// still and scrolls sideways instead.
 export function SponsorBand({ sponsors, reverse = false, repeat = false }: SponsorBandProps) {
   const count = sponsors.items.length;
   const copies = Math.max(1, Math.ceil(LOGOS_PER_HALF / count));
@@ -47,31 +48,26 @@ export function SponsorBand({ sponsors, reverse = false, repeat = false }: Spons
       className="w-full scroll-mt-16 bg-postal-paper text-postal-navy"
     >
       <div aria-hidden="true" className={`h-2 ${AIRMAIL}`} />
-      <div className="flex">
-        <p className="flex shrink-0 items-center bg-postal-navy px-3 font-sans text-xs font-bold uppercase tracking-[0.15em] text-postal-paper sm:px-4 sm:text-sm md:px-6 md:tracking-[0.2em]">
-          {sponsors.title}
-        </p>
-        <div className="min-w-0 flex-1 overflow-hidden py-5 motion-reduce:overflow-x-auto">
-          <div
-            className={`flex w-max animate-marquee hover:[animation-play-state:paused] focus-within:[animation-play-state:paused] motion-reduce:animate-none ${
-              reverse ? "[animation-direction:reverse]" : ""
-            }`}
-          >
-            {[0, 1].map((copy) => (
-              <ul key={copy} className="flex shrink-0 items-center gap-10 pl-10">
-                {half.map((sponsor, index) => {
-                  // Only the first band's first pass through the list is for
-                  // screen readers and the keyboard; the rest is repetition.
-                  const echo = repeat || copy > 0 || index >= count;
-                  return (
-                    <li key={`${sponsor.name}-${index}`} aria-hidden={echo || undefined}>
-                      <SponsorLogo sponsor={sponsor} focusable={!echo} />
-                    </li>
-                  );
-                })}
-              </ul>
-            ))}
-          </div>
+      <div className="overflow-hidden py-5 motion-reduce:overflow-x-auto">
+        <div
+          className={`flex w-max animate-marquee hover:[animation-play-state:paused] focus-within:[animation-play-state:paused] motion-reduce:animate-none ${
+            reverse ? "[animation-direction:reverse]" : ""
+          }`}
+        >
+          {[0, 1].map((copy) => (
+            <ul key={copy} className="flex shrink-0 items-center gap-10 pl-10">
+              {half.map((sponsor, index) => {
+                // Only the first band's first pass through the list is for
+                // screen readers and the keyboard; the rest is repetition.
+                const echo = repeat || copy > 0 || index >= count;
+                return (
+                  <li key={`${sponsor.name}-${index}`} aria-hidden={echo || undefined}>
+                    <SponsorLogo sponsor={sponsor} focusable={!echo} />
+                  </li>
+                );
+              })}
+            </ul>
+          ))}
         </div>
       </div>
       <div aria-hidden="true" className={`h-2 ${AIRMAIL}`} />
