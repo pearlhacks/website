@@ -11,12 +11,21 @@ interface AboutProps {
 
 type Photo = AboutContent["photos"][number];
 
-// Two strands of photos, split from the list in order: one each side of the
-// text on wide screens, side by side above it on narrow ones. The strings
-// differ in length so the strands don't line up.
+// Two strands of photos, split from the list in order: on wide screens one
+// is centred in the space each side of the text (36rem wide, so each space is
+// (100vw - 36rem) / 2), and on narrow ones both hang side by side above it.
+// The strings differ in length so the strands don't line up.
 const STRANDS = [
-  { side: "lg:left-[5%]", strings: ["h-10 lg:h-20", "h-6 lg:h-10"], delay: 0 },
-  { side: "lg:right-[5%]", strings: ["h-16 lg:h-36", "h-6 lg:h-10"], delay: 0.2 },
+  {
+    side: "lg:left-[calc((100vw-36rem)/4)] lg:-translate-x-1/2",
+    strings: ["h-10 lg:h-28", "h-6 lg:h-14"],
+    delay: 0,
+  },
+  {
+    side: "lg:right-[calc((100vw-36rem)/4)] lg:translate-x-1/2",
+    strings: ["h-16 lg:h-44", "h-6 lg:h-14"],
+    delay: 0.2,
+  },
 ];
 
 export function About({ about }: AboutProps) {
@@ -84,16 +93,17 @@ export function About({ about }: AboutProps) {
 }
 
 // A photo framed as a postage stamp. The perforations are a dotted border in
-// the section's navy, over the stamp's paper.
+// the section's navy, over the stamp's paper. On wide screens it fills 70% of
+// the space beside the text, up to 20rem.
 function Stamp({ photo }: { photo: Photo }) {
   return (
-    <div className="relative w-28 border-[6px] border-dotted border-postal-navy bg-postal-paper p-1.5 shadow-lg sm:w-32 lg:w-40">
-      <div className="relative aspect-[4/5] overflow-hidden">
+    <div className="relative w-36 border-[6px] border-dotted border-postal-navy bg-postal-paper p-1.5 shadow-lg lg:w-[min(20rem,calc((100vw-36rem)*0.35))]">
+      <div className="relative aspect-[5/4] overflow-hidden">
         <Image
           src={photo.src}
           alt={photo.alt}
           fill
-          sizes="(min-width: 1024px) 160px, 128px"
+          sizes="(min-width: 1024px) 320px, 144px"
           className="object-cover"
         />
       </div>
