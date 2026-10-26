@@ -96,8 +96,9 @@ export default function Page() {
           <div className="flex flex-col md:flex-row items-top lg:items-center md:space-x-4 text-brown">
             <div className="space-y-4">
               <p>
-                Pearl Hacks is an event designed to uplift and center women and
-                gender non-conforming individuals in tech. We expect all of our
+                Pearl Hacks is an event designed to uplift and center{" "}
+                <span className="font-bold">women and gender non-conforming</span>{" "}
+                individuals in tech. We expect all of our
                 mentors, volunteers, participants, directors, sponsors, judges,
                 and visitors to be respectful of our participants&apos; gender
                 identities and expressions.

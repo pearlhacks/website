@@ -4,6 +4,7 @@ import { FadeIn } from "@/components/Scroll/FadeIn";
 import { Hang } from "@/components/Scroll/Hang";
 import { SectionHeading } from "@/components/UI/SectionHeading";
 import { About as AboutContent } from "@/lib/content";
+import { formatInline } from "@/utils/helpers";
 
 interface AboutProps {
   about: AboutContent;
@@ -68,13 +69,13 @@ export function About({ about }: AboutProps) {
         <SectionHeading id="about-heading" title={about.title} light />
         {about.paragraphs.map((paragraph) => (
           <p key={paragraph} className="text-lg leading-relaxed">
-            {paragraph}
+            {formatInline(paragraph)}
           </p>
         ))}
         {/* Highlighted in Dot's warm tan, so it stands out on the navy. */}
         <div className="rounded-2xl bg-postal-tan-light p-5 text-postal-navy shadow-lg">
           <h3 className="font-sans font-bold text-postal-red-dark">{about.inclusivity.title}</h3>
-          <p className="mt-2 leading-relaxed">{about.inclusivity.body}</p>
+          <p className="mt-2 leading-relaxed">{formatInline(about.inclusivity.body)}</p>
         </div>
         <div className="flex flex-wrap justify-center gap-3 pt-2">
           {about.links.map((link) => (

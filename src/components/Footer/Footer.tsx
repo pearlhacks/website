@@ -31,8 +31,9 @@ export function Footer({ backgroundColor = "generic" }: FooterProps) {
             <Link href={social_email}>questions@pearlhacks.com</Link>.
           </FooterContent>
           <FooterContent title="Inclusivity Statement">
-            Pearl Hacks is an event designed to uplift women and gender
-            non-conforming students in tech. We expect all mentors, volunteers,
+            Pearl Hacks is an event designed to uplift{" "}
+            <span className="font-bold">women and gender non-conforming</span>{" "}
+            students in tech. We expect all mentors, volunteers,
             participants, directors, sponsors, judges, and visitors to be
             respectful of our participants&apos; identities and expressions.
           </FooterContent>

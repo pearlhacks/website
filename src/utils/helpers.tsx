@@ -16,69 +16,66 @@ export const getTiers = (tier: string) => {
   }
 };
 
+// Turns **bold**, *italic* and ***both*** into spans. Each marker toggles its
+// style, so an unclosed one runs to the end of the text.
+const formatEmphasis = (text: string, nextKey: () => number) => {
+  const parts: JSX.Element[] = [];
+  let isItalic = false;
+  let isBold = false;
+
+  text.split(/(\*\*\*|\*\*|\*)/).forEach((segment) => {
+    if (segment === "***") {
+      isBold = !isBold;
+      isItalic = !isItalic;
+    } else if (segment === "**") {
+      isBold = !isBold;
+    } else if (segment === "*") {
+      isItalic = !isItalic;
+    } else if (segment) {
+      parts.push(
+        <span
+          key={nextKey()}
+          className={`${isBold ? "font-bold" : ""} ${isItalic ? "italic" : ""}`}
+        >
+          {segment}
+        </span>
+      );
+    }
+  });
+
+  return parts;
+};
+
+// Turns [text](url) links and **bold** / *italic* into elements, for text
+// that already sits inside a paragraph.
+export const formatInline = (text: string) => {
+  const parts: JSX.Element[] = [];
+  let key = 0;
+  const nextKey = () => key++;
+
+  const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+  let linkMatch;
+  let lastIndex = 0;
+
+  while ((linkMatch = linkRegex.exec(text)) !== null) {
+    parts.push(...formatEmphasis(text.substring(lastIndex, linkMatch.index), nextKey));
+    parts.push(
+      <Link key={nextKey()} href={linkMatch[2]}>
+        {linkMatch[1]}
+      </Link>
+    );
+    lastIndex = linkMatch.index + linkMatch[0].length;
+  }
+  parts.push(...formatEmphasis(text.substring(lastIndex), nextKey));
+
+  return parts;
+};
+
+// Formats a block of text: each line becomes a paragraph, or a bullet if it
+// starts with "-", with links and emphasis inside.
 export const formatContent = (text: string) => {
   // Split the text into lines
   const lines = text.split("\n");
-
-  // Function to process markdown inline formats
-  const processInlineMarkdown = (text: string) => {
-    const parts: JSX.Element[] = [];
-    let currentText = text;
-    let key = 0;
-
-    // Process links - [text](url)
-    const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
-    let linkMatch;
-    let lastIndex = 0;
-
-    while ((linkMatch = linkRegex.exec(currentText)) !== null) {
-      // Add text before the link
-      if (linkMatch.index > lastIndex) {
-        parts.push(
-          <span key={key++}>
-            {currentText.substring(lastIndex, linkMatch.index)}
-          </span>
-        );
-      }
-
-      // Add the link
-      parts.push(<Link key={key++} href={linkMatch[2]}>{linkMatch[1]}</Link>);
-
-      lastIndex = linkMatch.index + linkMatch[0].length;
-    }
-
-    // Add remaining text after the last link
-    currentText = currentText.substring(lastIndex);
-
-    // Process bold and italic
-    const segments = currentText.split(/(\*\*\*|\*\*|\*)/);
-    let isItalic = false;
-    let isBold = false;
-
-    segments.forEach((segment, index) => {
-      if (segment === "***") {
-        isBold = !isBold;
-        isItalic = !isItalic;
-      } else if (segment === "**") {
-        isBold = !isBold;
-      } else if (segment === "*") {
-        isItalic = !isItalic;
-      } else if (segment) {
-        parts.push(
-          <span
-            key={key++}
-            className={`${isBold ? "font-bold" : ""} ${
-              isItalic ? "italic" : ""
-            }`}
-          >
-            {segment}
-          </span>
-        );
-      }
-    });
-
-    return parts;
-  };
 
   return lines.map((line, index) => {
     // Check if line starts with a bullet point
@@ -92,7 +89,7 @@ export const formatContent = (text: string) => {
     }
 
     // Process markdown in the line
-    const formattedContent = processInlineMarkdown(processedLine);
+    const formattedContent = formatInline(processedLine);
 
     return isBulletPoint ? (
       <li key={index} className="ml-6 list-disc my-1">

@@ -26,6 +26,7 @@ export interface Settings {
 
 export interface About {
   title: string;
+  /** Paragraphs and the inclusivity body support **bold** and [text](url) links. */
   paragraphs: string[];
   inclusivity: { title: string; body: string };
   /** Two to four, hung as stamps either side of the text. 640px-wide JPEGs keep them light. */

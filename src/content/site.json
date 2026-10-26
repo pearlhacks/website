@@ -13,20 +13,20 @@
       { "label": "FAQ", "href": "/#faq" }
     ],
     "mlhBadge": {
-      "href": "https://mlh.io/na?utm_source=na-hackathon&utm_medium=TrustBadge&utm_campaign=2026-season&utm_content=white",
-      "image": "https://s3.amazonaws.com/logged-assets/trust-badge/2026/mlh-trust-badge-2026-white.svg",
-      "alt": "Major League Hacking 2026 Hackathon Season"
+      "href": "https://mlh.io/na?utm_source=na-hackathon&utm_medium=TrustBadge&utm_campaign=2027-season&utm_content=white",
+      "image": "https://s3.amazonaws.com/logged-assets/trust-badge/2027/mlh-trust-badge-2027-white.svg",
+      "alt": "Major League Hacking 2027 Hackathon Season"
     }
   },
   "about": {
     "title": "What is Pearl Hacks?",
     "paragraphs": [
-      "Pearl Hacks is a hackathon that celebrates women and gender-nonconforming individuals in tech. In alignment with university guidelines, the event is open to all participants, while maintaining a supportive environment that centers historically underrepresented genders in technology. We especially cater to first-time hackers who are looking for a supportive environment to explore technology.",
+      "Pearl Hacks is a hackathon that celebrates **women and gender-nonconforming** individuals in tech. In alignment with university guidelines, the event is open to all participants, while maintaining a supportive environment that centers historically underrepresented genders in technology. We especially cater to first-time hackers who are looking for a supportive environment to explore technology.",
       "Participants work in teams to create incredible projects in 24 hours with the help of excellent mentors, workshops, and tech talks. All the while, they’ll get to meet some fantastic people, enjoy fun games, collect swag, and eat free food."
     ],
     "inclusivity": {
       "title": "Inclusivity statement",
-      "body": "Pearl Hacks is an event designed to uplift and center women and gender non-conforming individuals in tech. We expect all of our mentors, volunteers, participants, directors, sponsors, judges, and visitors to be respectful of our participants’ gender identities and expressions."
+      "body": "Pearl Hacks is an event designed to uplift and center **women and gender non-conforming** individuals in tech. We expect all of our mentors, volunteers, participants, directors, sponsors, judges, and visitors to be respectful of our participants’ gender identities and expressions."
     },
     "photos": [
       { "src": "/art/about/photo-1.jpg", "alt": "The Pearl Hacks team making heart hands on a flight of campus steps" },
