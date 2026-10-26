@@ -29,6 +29,7 @@ const STATIC_LETTER =
 // out of the mailbox, rests where it lands, then opens.
 const STEPS = {
   mailHint: [0, 0.04],
+  drive: [0, 0.3],
   door: [0.03, 0.13],
   emerge: [0.12, 0.3],
   flag: [0.16, 0.24],
@@ -43,9 +44,14 @@ const STEPS = {
   letter: [0.86, 0.95],
 } as const;
 
+// 0 before the step, 1 after it, straight through in between.
+function through(progress: number, [start, end]: readonly [number, number]) {
+  return Math.min(Math.max((progress - start) / (end - start), 0), 1);
+}
+
 // 0 before the step, 1 after it, eased out in between.
-function step(progress: number, [start, end]: readonly [number, number]) {
-  const t = Math.min(Math.max((progress - start) / (end - start), 0), 1);
+function step(progress: number, range: readonly [number, number]) {
+  const t = through(progress, range);
   return 1 - (1 - t) ** 3;
 }
 
@@ -105,6 +111,9 @@ export function EnvelopeIntro({ settings }: EnvelopeIntroProps) {
   // The street and mailbox fade back as the envelope comes forward, and stay
   // as a backdrop until the letter covers them.
   const sceneOpacity = useTransform(progress, (p) => 1 - 0.6 * step(p, STEPS.scene));
+  // Dot's truck waits at the left of the street, then drives past the
+  // mailbox and off to the right at a steady speed as the page scrolls.
+  const truckX = useTransform(progress, (p) => `${-45 + 120 * through(p, STEPS.drive)}vw`);
   // The envelope starts small inside the mailbox, then is pulled up and out
   // in an arc to full size.
   const envelopeScale = useTransform(progress, (p) => 0.28 + 0.72 * step(p, STEPS.emerge));
@@ -187,7 +196,7 @@ export function EnvelopeIntro({ settings }: EnvelopeIntroProps) {
               </div>
               {/* The mailbox is centered on the envelope, which starts inside it. */}
               <div className="relative aspect-[8/5] w-full">
-                <Street opacity={sceneOpacity} />
+                <Street opacity={sceneOpacity} truckX={truckX} />
                 <Mailbox door={doorRotate} doorZ={doorZ} flag={flagRotate} opacity={sceneOpacity} />
 
                 <m.div
