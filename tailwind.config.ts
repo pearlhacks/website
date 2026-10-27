@@ -15,6 +15,23 @@ const config: Config = {
       backgroundImage: {
         landing: "url(/images/landing/PH2026_WebsiteLanding.svg')",
       },
+      keyframes: {
+        // Slides a track made of two identical halves along by one half, so
+        // the loop is seamless.
+        marquee: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(-50%)" },
+        },
+        // Lifts a line of text into place, for text that changes.
+        rise: {
+          from: { opacity: "0", transform: "translateY(0.25em)" },
+          to: { opacity: "1", transform: "none" },
+        },
+      },
+      animation: {
+        marquee: "marquee 45s linear infinite",
+        rise: "rise 0.3s ease-out",
+      },
       colors: {
         // Primary brand colors - browns
         brown: {
@@ -46,6 +63,36 @@ const config: Config = {
         // Utility colors
         green: {
           DEFAULT: "#96b548", // Kept for future use
+        },
+        // PH27 "Post Office" palette, sampled from the Dot mascot art. Used by
+        // the homepage; other pages still use the colors above.
+        postal: {
+          navy: {
+            light: "#34508c",
+            DEFAULT: "#233a6a", // Stamp border, hat, text
+            dark: "#182a50",
+          },
+          blue: {
+            light: "#aac6ec",
+            DEFAULT: "#93b5e5", // Hat brim, mailbag
+            dark: "#7a9fd6",
+          },
+          sky: {
+            DEFAULT: "#ddebfb", // Stamp background
+            dark: "#c6dbf4", // Dot's shadow
+          },
+          red: {
+            DEFAULT: "#d54c5c", // Bandana
+            dark: "#b23a49",
+          },
+          // Dot's fur, used as a manila envelope
+          tan: {
+            light: "#fbe9c6",
+            DEFAULT: "#f5d9a4",
+            dark: "#e3bc7e",
+            deep: "#c99a5b",
+          },
+          paper: "#fffdf8", // Letters
         },
       },
     },
