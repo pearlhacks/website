@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { Sponsors } from "@/lib/content";
+import { AIRMAIL } from "@/components/UI/airmail";
+import { SectionHeading } from "@/components/UI/SectionHeading";
 import { Sponsor, Tier } from "@/utils/Types";
 
 interface SponsorBandProps {
@@ -25,16 +27,25 @@ const TIER_SIZE: Record<Tier, string> = {
 // desktop screen, so the loop never shows a gap.
 const LOGOS_PER_HALF = 12;
 
-// Airmail envelope edging: diagonal red and navy stripes on paper.
-const AIRMAIL =
-  "bg-[repeating-linear-gradient(-45deg,theme(colors.postal.red.DEFAULT)_0_12px,theme(colors.postal.paper)_12px_24px,theme(colors.postal.navy.DEFAULT)_24px_36px,theme(colors.postal.paper)_36px_48px)]";
+// Tiers in the order the "tiers" layout lists them, with their headings.
+const TIERS: [Tier, string][] = [
+  [Tier.PEARL, "Pearl"],
+  [Tier.GOLD, "Gold"],
+  [Tier.SILVER, "Silver"],
+  [Tier.CUSTOM, "Partners"],
+];
 
 // A strip between sections with sponsor logos sliding past, edged like an
 // airmail envelope. It has no visible title; screen readers hear it named
 // after the sponsors title. The motion is a CSS animation, so it costs no
 // JavaScript. It pauses on hover or focus, and with reduced motion it stands
 // still and scrolls sideways instead.
+//
+// With the "tiers" layout in site.json, the first band becomes a still
+// section grouped by tier, and the repeats disappear.
 export function SponsorBand({ sponsors, reverse = false, repeat = false }: SponsorBandProps) {
+  if (sponsors.layout === "tiers") return repeat ? null : <SponsorTiers sponsors={sponsors} />;
+
   const count = sponsors.items.length;
   const copies = Math.max(1, Math.ceil(LOGOS_PER_HALF / count));
   const half = Array.from({ length: copies }, () => sponsors.items).flat();
@@ -72,6 +83,43 @@ export function SponsorBand({ sponsors, reverse = false, repeat = false }: Spons
       </div>
       <div aria-hidden="true" className={`h-2 ${AIRMAIL}`} />
     </Band>
+  );
+}
+
+// Every sponsor once, standing still, under its tier's heading, for when
+// sponsors would rather be seen by tier. Same airmail edges as the bands.
+function SponsorTiers({ sponsors }: { sponsors: Sponsors }) {
+  const groups = TIERS.map(([tier, heading]) => ({
+    heading,
+    items: sponsors.items.filter((sponsor) => sponsor.tier === tier),
+  })).filter((group) => group.items.length > 0);
+
+  return (
+    <section
+      id="sponsors"
+      aria-labelledby="sponsors-heading"
+      className="w-full scroll-mt-16 bg-postal-paper text-postal-navy"
+    >
+      <div aria-hidden="true" className={`h-2 ${AIRMAIL}`} />
+      <div className="mx-auto max-w-7xl space-y-10 px-4 py-16 text-center">
+        <SectionHeading id="sponsors-heading" title={sponsors.title} />
+        {groups.map((group) => (
+          <div key={group.heading}>
+            <h3 className="font-sans text-sm font-bold uppercase tracking-[0.2em] text-postal-navy/60">
+              {group.heading}
+            </h3>
+            <ul className="mt-4 flex flex-wrap items-center justify-center gap-10">
+              {group.items.map((sponsor) => (
+                <li key={sponsor.name}>
+                  <SponsorLogo sponsor={sponsor} focusable />
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+      <div aria-hidden="true" className={`h-2 ${AIRMAIL}`} />
+    </section>
   );
 }
 

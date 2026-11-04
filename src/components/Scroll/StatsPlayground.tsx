@@ -39,26 +39,33 @@ export function StatsPlayground({ stats }: StatsPlaygroundProps) {
   const cardsRef = useRef<HTMLDivElement>(null);
 
   // As the cards scroll into view, they turn over from face down (see
-  // playOnView for when that plays and replays). The turn is on an inner
-  // layer, so it doesn't fight motion over the card's own transform (tilt,
-  // drag and scale).
+  // playOnView for when that plays and replays). The turn is flat, not 3D:
+  // each card squashes to its edge, swaps its back for its photo, and opens
+  // out again. Edge and Firefox on Windows drew the old 3D turn as stray
+  // white bars. It's on an inner layer, so it doesn't fight motion over the
+  // card's own transform (tilt, drag and scale).
   useEffect(() => {
     const cards = cardsRef.current;
     if (!cards || reduceMotion) return;
 
     const flippers = Array.from(cards.querySelectorAll<HTMLElement>("[data-flip]"));
+    const backOf = (flipper: HTMLElement) => flipper.querySelector<HTMLElement>("[data-card-back]");
     return playOnView(cards, {
       hide: () => {
-        for (const flipper of flippers) flipper.style.transform = "perspective(1000px) rotateY(180deg)";
+        for (const flipper of flippers) {
+          flipper.style.transform = "scaleX(-1)";
+          backOf(flipper)?.style.setProperty("opacity", "1");
+        }
       },
       play: () =>
-        flippers.forEach((flipper, index) =>
-          animate(
-            flipper,
-            { transform: ["perspective(1000px) rotateY(180deg)", "none"] },
-            { duration: FLIP_DURATION, delay: index * FLIP_STAGGER, ease: [0.22, 1, 0.36, 1] }
-          )
-        ),
+        flippers.forEach((flipper, index) => {
+          // Both share their timing, so the back drops out just as the card
+          // is edge on, halfway through.
+          const timing = { duration: FLIP_DURATION, delay: index * FLIP_STAGGER, ease: "easeInOut" } as const;
+          animate(flipper, { transform: ["scaleX(-1)", "scaleX(0)", "none"] }, { ...timing, times: [0, 0.5, 1] });
+          const back = backOf(flipper);
+          if (back) animate(back, { opacity: [1, 1, 0, 0] }, { ...timing, times: [0, 0.5, 0.5, 1] });
+        }),
       amount: 0.35,
     });
   }, [reduceMotion]);
@@ -102,8 +109,8 @@ export function StatsPlayground({ stats }: StatsPlaygroundProps) {
                       canDrag ? "cursor-grab active:cursor-grabbing" : ""
                     }`}
                   >
-                    <div data-flip className="relative [transform-style:preserve-3d]">
-                      <div className="rounded-2xl bg-white p-2 shadow-lg [backface-visibility:hidden]">
+                    <div data-flip className="relative">
+                      <div className="rounded-2xl bg-white p-2 shadow-lg">
                         <Image
                           src={`/art/stats/photo-${index + 1}.webp`}
                           alt={photo.alt}
@@ -141,17 +148,20 @@ export function StatsPlayground({ stats }: StatsPlaygroundProps) {
 }
 
 // The back of a photo card, seen while it lies face down: navy, with a
-// postmark in the middle.
+// postmark in the middle. Hidden until the turn shows it. It's drawn
+// mirrored, because the card is mirrored while face down. No year on it:
+// the photos are from past events.
 function CardBack() {
   return (
     <div
+      data-card-back
       aria-hidden="true"
-      className="absolute inset-0 flex items-center justify-center rounded-2xl bg-postal-navy shadow-lg [backface-visibility:hidden] [transform:rotateY(180deg)]"
+      className="absolute inset-0 flex -scale-x-100 items-center justify-center rounded-2xl bg-postal-navy opacity-0 shadow-lg"
     >
       <svg viewBox="0 0 120 60" className="w-1/2 text-postal-sky">
         <circle cx="30" cy="30" r="26" fill="none" stroke="currentColor" strokeWidth="2.5" />
         <text x="30" y="35" textAnchor="middle" fontSize="13" fill="currentColor" className="font-sans font-bold">
-          PH27
+          PH
         </text>
         <g fill="none" stroke="currentColor" strokeWidth="2.5">
           <path d="M62 18q7-6 14 0t14 0 14 0 14 0" />

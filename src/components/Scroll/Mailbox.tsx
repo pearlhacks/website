@@ -1,7 +1,7 @@
 "use client";
 
 import * as m from "motion/react-m";
-import { MotionValue } from "motion/react";
+import { MotionValue, useTransform } from "motion/react";
 
 interface MailboxProps {
   /** Door angle in degrees: 0 closed, negative swings it down toward the viewer. */
@@ -23,6 +23,13 @@ export const SCENE_FRAME =
 // The door is a separate layer so the envelope can sit between the inside of
 // the mailbox and its door. Both layers share the same frame and fade.
 export function Mailbox({ door, doorZ, flag, opacity }: MailboxProps) {
+  // The door swings flat, not in 3D, so every browser draws it the same: it
+  // shrinks toward its hinge, then grows back mirrored below it with its
+  // inside showing.
+  const doorScale = useTransform(door, (angle) => Math.cos((angle * Math.PI) / 180));
+  const doorOutside = useTransform(doorScale, (scale) => (scale > 0 ? 1 : 0));
+  const doorInside = useTransform(doorScale, (scale) => (scale > 0 ? 0 : 1));
+
   return (
     <>
       <m.div style={{ opacity }} className="absolute inset-0 z-0">
@@ -54,14 +61,20 @@ export function Mailbox({ door, doorZ, flag, opacity }: MailboxProps) {
       <m.div style={{ opacity, zIndex: doorZ }} className="absolute inset-0">
         <div className={SCENE_FRAME}>
           <m.div
-            style={{ rotateX: door, transformPerspective: 1200 }}
-            className="absolute left-[10%] top-[15.38%] h-[42.31%] w-1/2 origin-bottom [transform-style:preserve-3d]"
+            style={{ scaleY: doorScale }}
+            className="absolute left-[10%] top-[15.38%] h-[42.31%] w-1/2 origin-bottom"
           >
-            <div className="absolute inset-0 border-[3px] border-postal-navy bg-postal-blue [backface-visibility:hidden] [border-top-left-radius:50%_45.45%] [border-top-right-radius:50%_45.45%]">
+            <m.div
+              style={{ opacity: doorOutside }}
+              className="absolute inset-0 border-[3px] border-postal-navy bg-postal-blue [border-top-left-radius:50%_45.45%] [border-top-right-radius:50%_45.45%]"
+            >
               <div className="absolute left-1/2 top-[10%] h-[7%] w-[16%] -translate-x-1/2 rounded-full bg-postal-navy" />
-            </div>
-            {/* Seen once the door hangs open, so its curve is mirrored. */}
-            <div className="absolute inset-0 border-[3px] border-postal-navy bg-postal-blue-dark [backface-visibility:hidden] [border-bottom-left-radius:50%_45.45%] [border-bottom-right-radius:50%_45.45%] [transform:rotateX(180deg)]" />
+            </m.div>
+            {/* Seen once the door hangs open; the mirroring puts its curve at the bottom. */}
+            <m.div
+              style={{ opacity: doorInside }}
+              className="absolute inset-0 border-[3px] border-postal-navy bg-postal-blue-dark [border-top-left-radius:50%_45.45%] [border-top-right-radius:50%_45.45%]"
+            />
           </m.div>
         </div>
       </m.div>

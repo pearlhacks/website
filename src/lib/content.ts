@@ -15,6 +15,8 @@ export interface Settings {
   name: string;
   tagline: string;
   eventDates: string;
+  /** Shown with the dates on the envelope, e.g. "Starts 9 AM". */
+  eventTime: string;
   /** ISO 8601 start time for the countdown, e.g. "2027-02-20T09:00:00-05:00". null hides it. */
   eventStart: string | null;
   location: string;
@@ -75,6 +77,11 @@ export interface Stats {
 
 export interface Sponsors {
   title: string;
+  /**
+   * "band": logos slide past in strips between sections. "tiers": they sit
+   * still in one section, grouped under each tier's name.
+   */
+  layout: "band" | "tiers";
   items: Sponsor[];
 }
 
@@ -119,6 +126,7 @@ export async function getStats(): Promise<Stats> {
 export async function getSponsors(): Promise<Sponsors> {
   return {
     title: site.sponsors.title,
+    layout: site.sponsors.layout === "tiers" ? "tiers" : "band",
     items: site.sponsors.items.map((sponsor) => ({
       ...sponsor,
       tier: getTiers(sponsor.tier),

@@ -228,7 +228,8 @@ function Stop({ program, index, progress, at }: StopProps) {
 
   return (
     <li className={`relative pl-16 md:w-1/2 md:pl-0 ${right ? "md:ml-auto" : ""}`}>
-      {/* Stamped with a postmark once Dot gets here. */}
+      {/* Stamped with a postmark once Dot gets here. The stops show an
+          envelope, not a number, as the programs aren't ranked. */}
       <div
         data-stop-marker
         aria-hidden="true"
@@ -236,7 +237,7 @@ function Stop({ program, index, progress, at }: StopProps) {
           right ? "md:left-[-50%]" : "md:left-[150%]"
         }`}
       >
-        {String(index + 1).padStart(2, "0")}
+        <EnvelopeIcon />
         {/* Without Dot travelling (reduced motion), every stop starts delivered.
             Done in CSS so the server and browser render the same markup. */}
         <span
@@ -244,14 +245,14 @@ function Stop({ program, index, progress, at }: StopProps) {
             reached ? "scale-100 opacity-100" : "scale-150 opacity-0"
           }`}
         >
-          {String(index + 1).padStart(2, "0")}
+          <EnvelopeIcon />
         </span>
       </div>
 
       <FadeIn>
         <article className="rounded-3xl bg-postal-paper p-6 shadow-md md:p-8">
           <p className="font-sans text-sm font-bold uppercase tracking-[0.2em] text-postal-red-dark">
-            Stop {String(index + 1).padStart(2, "0")} · {program.label}
+            {program.label}
           </p>
           <h3 className="mt-1 font-sans text-2xl font-bold">{program.title}</h3>
           <p className="mt-3 leading-relaxed">{program.body}</p>
@@ -263,5 +264,14 @@ function Stop({ program, index, progress, at }: StopProps) {
         </article>
       </FadeIn>
     </li>
+  );
+}
+
+function EnvelopeIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinejoin="round" className="h-5 w-5">
+      <rect x="3" y="6" width="18" height="12" rx="1.5" />
+      <path d="M3.5 7l8.5 6.5L20.5 7" />
+    </svg>
   );
 }

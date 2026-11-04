@@ -93,6 +93,7 @@ const config: Config = {
             deep: "#c99a5b",
           },
           paper: "#fffdf8", // Letters
+          cream: "#fff5d1", // Soft yellow highlight
         },
       },
     },

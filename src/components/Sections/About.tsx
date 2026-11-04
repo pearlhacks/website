@@ -72,8 +72,8 @@ export function About({ about }: AboutProps) {
             {formatInline(paragraph)}
           </p>
         ))}
-        {/* Highlighted in Dot's warm tan, so it stands out on the navy. */}
-        <div className="rounded-2xl bg-postal-tan-light p-5 text-postal-navy shadow-lg">
+        {/* Highlighted in a soft yellow, so it stands out on the navy. */}
+        <div className="rounded-2xl bg-postal-cream p-5 text-postal-navy shadow-lg">
           <h3 className="font-sans font-bold text-postal-red-dark">{about.inclusivity.title}</h3>
           <p className="mt-2 leading-relaxed">{formatInline(about.inclusivity.body)}</p>
         </div>
@@ -96,7 +96,8 @@ export function About({ about }: AboutProps) {
 
 // A photo framed as a postage stamp. The perforations are a dotted border in
 // the section's navy, over the stamp's paper. On wide screens it fills 70% of
-// the space beside the text, up to 20rem.
+// the space beside the text, up to 20rem. No year on it: the photos are from
+// past events.
 function Stamp({ photo }: { photo: Photo }) {
   return (
     <div className="relative w-36 border-[6px] border-dotted border-postal-navy bg-postal-paper p-1.5 shadow-lg lg:w-[min(20rem,calc((100vw-36rem)*0.35))]">
@@ -109,12 +110,6 @@ function Stamp({ photo }: { photo: Photo }) {
           className="object-cover"
         />
       </div>
-      <span
-        aria-hidden="true"
-        className="absolute bottom-2.5 right-2.5 rounded-sm bg-postal-paper/90 px-1 font-sans text-[10px] font-bold text-postal-navy"
-      >
-        PH27
-      </span>
     </div>
   );
 }

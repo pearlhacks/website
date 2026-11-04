@@ -3,11 +3,12 @@
 import { useLayoutEffect, useRef } from "react";
 import Image from "next/image";
 import * as m from "motion/react-m";
-import { LazyMotion, domMin, useMotionValue, useScroll, useTransform } from "motion/react";
+import { LazyMotion, MotionValue, domMin, useMotionValue, useScroll, useTransform } from "motion/react";
 import { SecondaryButton } from "@/components/Buttons/SecondaryButton";
 import { Countdown } from "@/components/Scroll/Countdown";
 import { Mailbox } from "@/components/Scroll/Mailbox";
 import { Street } from "@/components/Scroll/Street";
+import { AIRMAIL } from "@/components/UI/airmail";
 import { Settings } from "@/lib/content";
 
 interface EnvelopeIntroProps {
@@ -26,22 +27,24 @@ const STATIC_LETTER =
   "[data-letter]{position:static;opacity:1!important;transform:none!important}";
 
 // Where each step happens, as a share of the pinned scroll. The envelope comes
-// out of the mailbox, rests where it lands, then opens.
+// out of the mailbox addressed side up, rests where it lands so the date and
+// place can be read, turns over, then opens.
 const STEPS = {
-  mailHint: [0, 0.04],
-  drive: [0, 0.3],
-  door: [0.03, 0.13],
-  emerge: [0.12, 0.3],
-  flag: [0.16, 0.24],
-  scene: [0.2, 0.32],
-  openHintIn: [0.28, 0.33],
-  openHintOut: [0.37, 0.42],
-  flap: [0.36, 0.49],
-  lift: [0.49, 0.64],
-  drop: [0.64, 0.82],
-  grow: [0.66, 0.87],
-  preview: [0.64, 0.71],
-  letter: [0.86, 0.95],
+  mailHint: [0, 0.035],
+  drive: [0, 0.25],
+  door: [0.025, 0.11],
+  emerge: [0.1, 0.25],
+  flag: [0.13, 0.2],
+  scene: [0.17, 0.27],
+  turn: [0.31, 0.39],
+  openHintIn: [0.38, 0.42],
+  openHintOut: [0.46, 0.5],
+  flap: [0.44, 0.54],
+  lift: [0.54, 0.66],
+  drop: [0.66, 0.81],
+  grow: [0.67, 0.85],
+  preview: [0.66, 0.72],
+  letter: [0.85, 0.94],
 } as const;
 
 // 0 before the step, 1 after it, straight through in between.
@@ -56,7 +59,7 @@ function step(progress: number, range: readonly [number, number]) {
 }
 
 export function EnvelopeIntro({ settings }: EnvelopeIntroProps) {
-  const { name, tagline, eventDates, eventStart, location, apply } = settings;
+  const { name, tagline, eventDates, eventTime, eventStart, location, apply } = settings;
   const ref = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const paperRef = useRef<HTMLDivElement>(null);
@@ -127,9 +130,18 @@ export function EnvelopeIntro({ settings }: EnvelopeIntroProps) {
   });
   const envelopeRotate = useTransform(progress, (p) => -8 * (1 - step(p, STEPS.emerge)));
 
-  const flapRotate = useTransform(progress, (p) => step(p, STEPS.flap) * 180);
-  // The flap covers the paper until it stands upright, then falls behind it.
-  const flapZ = useTransform(flapRotate, (angle) => (angle < 90 ? 30 : 5));
+  // Turning over and opening are both flat, not 3D, so every browser draws
+  // them the same. To turn, the envelope squashes to its edge and opens out
+  // again with its back showing.
+  const turnScale = useTransform(progress, (p) => Math.abs(Math.cos(Math.PI * through(p, STEPS.turn))));
+  const frontOpacity = useTransform(progress, (p): number => (through(p, STEPS.turn) < 0.5 ? 1 : 0));
+  // To open, the flap shrinks up to its fold, then grows back mirrored above
+  // the envelope with its inside showing.
+  const flapScale = useTransform(progress, (p) => Math.cos(Math.PI * step(p, STEPS.flap)));
+  const flapOutside = useTransform(flapScale, (scale) => (scale > 0 ? 1 : 0));
+  const flapInside = useTransform(flapScale, (scale) => (scale > 0 ? 0 : 1));
+  // The flap covers the paper until it's folded flat, then falls behind it.
+  const flapZ = useTransform(flapScale, (scale) => (scale > 0 ? 30 : 5));
   const dropY = useTransform(progress, (p) => `${step(p, STEPS.drop) * 110}vh`);
   const dropOpacity = useTransform(progress, (p) => 1 - step(p, STEPS.drop));
 
@@ -164,7 +176,7 @@ export function EnvelopeIntro({ settings }: EnvelopeIntroProps) {
       id="content"
       data-envelope
       aria-labelledby="hero-title"
-      className="relative h-[440vh] w-full bg-postal-sky"
+      className="relative h-[520vh] w-full bg-postal-sky"
     >
       <style>{`@media (prefers-reduced-motion: reduce){${STATIC_LETTER}}`}</style>
       <noscript>
@@ -204,13 +216,14 @@ export function EnvelopeIntro({ settings }: EnvelopeIntroProps) {
                 <Mailbox door={doorRotate} doorZ={doorZ} flag={flagRotate} opacity={sceneOpacity} />
 
                 <m.div
-                  style={{ scale: envelopeScale, y: envelopeY, rotate: envelopeRotate }}
+                  style={{ scale: envelopeScale, scaleX: turnScale, y: envelopeY, rotate: envelopeRotate }}
                   className="absolute inset-0 z-10"
                 >
-                  {/* Inside of the envelope, behind the paper. */}
+                  {/* A white airmail envelope. Its blue lining, behind the paper;
+                      the ring outlines the envelope against the sky. */}
                   <m.div
                     style={{ y: dropY, opacity: dropOpacity }}
-                    className="absolute inset-0 rounded-md bg-postal-tan-deep"
+                    className="absolute inset-0 rounded-md bg-postal-blue-light ring-1 ring-postal-navy/20"
                   />
 
                   <m.div
@@ -229,29 +242,44 @@ export function EnvelopeIntro({ settings }: EnvelopeIntroProps) {
 
                   {/* The pocket: side flaps with a V cut out, then the bottom flap. */}
                   <m.div style={{ y: dropY, opacity: dropOpacity }} className="absolute inset-0 z-20">
-                    <div className="absolute inset-0 rounded-md bg-postal-tan [clip-path:polygon(0_0,50%_52%,100%_0,100%_100%,0_100%)]" />
-                    <div className="absolute inset-0 rounded-md bg-postal-tan-dark [clip-path:polygon(0_100%,50%_42%,100%_100%)]" />
-                    <p className="absolute inset-x-0 bottom-[7%] text-center font-sans text-xs font-bold sm:bottom-[10%] sm:text-sm uppercase tracking-[0.3em] text-postal-navy">
-                      {location}
-                    </p>
+                    <div className="absolute inset-0 rounded-md bg-postal-paper [clip-path:polygon(0_0,50%_52%,100%_0,100%_100%,0_100%)]" />
+                    <div className="absolute inset-0 rounded-md bg-postal-sky [clip-path:polygon(0_100%,50%_42%,100%_100%)]" />
                   </m.div>
 
                   <m.div
                     style={{ y: dropY, opacity: dropOpacity, zIndex: flapZ }}
                     className="absolute inset-0"
                   >
+                    {/* The shadow marks the flap's edge on the white pocket. */}
                     <m.div
-                      style={{ rotateX: flapRotate, transformPerspective: 1200 }}
-                      className="absolute inset-x-0 top-0 h-[58%] origin-top [transform-style:preserve-3d]"
+                      style={{ scaleY: flapScale }}
+                      className="absolute inset-x-0 top-0 h-[58%] origin-top [filter:drop-shadow(0_1px_2px_rgb(35_58_106/0.35))]"
                     >
-                      <div className="absolute inset-0 bg-postal-tan-light [backface-visibility:hidden] [clip-path:polygon(0_0,100%_0,50%_100%)]" />
-                      {/* Seen once the flap swings up, so its shape is mirrored. */}
-                      <div className="absolute inset-0 bg-postal-tan-deep [backface-visibility:hidden] [clip-path:polygon(50%_0,100%_100%,0_100%)] [transform:rotateX(180deg)]" />
-                      <div className="absolute bottom-0 left-1/2 flex h-12 w-12 -translate-x-1/2 translate-y-1/2 items-center justify-center rounded-full bg-postal-red shadow-md ring-2 ring-postal-red-dark [backface-visibility:hidden] sm:h-20 sm:w-20 sm:ring-4">
+                      <m.div
+                        style={{ opacity: flapOutside }}
+                        className="absolute inset-0 bg-postal-paper [clip-path:polygon(0_0,100%_0,50%_100%)]"
+                      />
+                      {/* Seen once the flap is open; the mirroring turns it to point up. */}
+                      <m.div
+                        style={{ opacity: flapInside }}
+                        className="absolute inset-0 bg-postal-blue-light [clip-path:polygon(0_0,100%_0,50%_100%)]"
+                      />
+                      <m.div
+                        style={{ opacity: flapOutside }}
+                        className="absolute bottom-0 left-1/2 flex h-12 w-12 -translate-x-1/2 translate-y-1/2 items-center justify-center rounded-full bg-postal-red shadow-md ring-2 ring-postal-red-dark sm:h-20 sm:w-20 sm:ring-4"
+                      >
                         <Image src="/images/PH2026Logo.svg" alt="" width={44} height={42} className="h-7 w-7 object-contain sm:h-11 sm:w-11" />
-                      </div>
+                      </m.div>
                     </m.div>
                   </m.div>
+
+                  <EnvelopeFront
+                    opacity={frontOpacity}
+                    name={name}
+                    dates={eventDates}
+                    time={eventTime}
+                    location={location}
+                  />
                 </m.div>
               </div>
             </div>
@@ -304,3 +332,46 @@ export function EnvelopeIntro({ settings }: EnvelopeIntroProps) {
   );
 }
 
+
+interface EnvelopeFrontProps {
+  opacity: MotionValue<number>;
+  name: string;
+  dates: string;
+  time: string;
+  location: string;
+}
+
+// The envelope's addressed side, seen first: airmail stripes around the edge,
+// a stamp with a postmark, and when and where the event is, addressed to the
+// visitor. It covers the back until the envelope turns over.
+function EnvelopeFront({ opacity, name, dates, time, location }: EnvelopeFrontProps) {
+  return (
+    <m.div style={{ opacity }} className={`absolute inset-0 z-40 rounded-md p-[3%] shadow-md ${AIRMAIL}`}>
+      <div className="relative h-full rounded-sm bg-postal-paper text-postal-navy">
+        <p className="absolute left-[5%] top-[8%] font-sans text-[10px] font-bold uppercase tracking-wider sm:text-xs">
+          From: {name}
+        </p>
+        <div className="absolute right-[5%] top-[8%] w-[13%] border-[3px] border-dotted border-postal-red bg-postal-sky p-0.5 sm:p-1">
+          <div className="relative aspect-[4/5]">
+            <Image src="/images/PH2026Logo.svg" alt="" fill className="object-contain" />
+          </div>
+        </div>
+        {/* A postmark over the stamp's left edge, its wavy lines trailing off to the left. */}
+        <svg viewBox="0 0 120 60" className="absolute right-[10%] top-[9%] w-[28%] text-postal-navy/50">
+          <circle cx="90" cy="30" r="24" fill="none" stroke="currentColor" strokeWidth="2.5" />
+          <g fill="none" stroke="currentColor" strokeWidth="2.5">
+            <path d="M4 20q7-6 14 0t14 0 14 0 14 0" />
+            <path d="M4 32q7-6 14 0t14 0 14 0 14 0" />
+            <path d="M4 44q7-6 14 0t14 0 14 0 14 0" />
+          </g>
+        </svg>
+        <div className="absolute inset-x-[8%] bottom-[12%] text-center">
+          <p className="font-sans text-xs italic sm:text-sm">To: you</p>
+          <p className="mt-1 font-sans text-xl font-bold uppercase sm:text-3xl">{dates}</p>
+          <p className="text-sm sm:text-base">{time}</p>
+          <p className="mt-1 font-sans text-xs font-bold uppercase tracking-[0.2em] sm:text-sm">{location}</p>
+        </div>
+      </div>
+    </m.div>
+  );
+}

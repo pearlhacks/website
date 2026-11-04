@@ -3,6 +3,7 @@
     "name": "Pearl Hacks",
     "tagline": "[TAGLINE]",
     "eventDates": "[EVENT DATES]",
+    "eventTime": "[EVENT TIME]",
     "eventStart": null,
     "location": "UNC-Chapel Hill",
     "apply": { "label": "Apply", "href": "#" },
@@ -36,7 +37,7 @@
     ],
     "links": [
       { "label": "Our story", "href": "https://maeganclawges.com/web/pearlhacks.html" },
-      { "label": "Past projects", "href": "https://pearlhacks2025.devpost.com/" }
+      { "label": "Past projects", "href": "https://pearlhacks2026.devpost.com/" }
     ]
   },
   "programs": {
@@ -116,6 +117,7 @@
   },
   "sponsors": {
     "title": "Sponsors",
+    "layout": "band",
     "items": [
       { "name": "[SPONSOR 1]", "url": "", "img_url": "", "tier": "pearl" },
       { "name": "[SPONSOR 2]", "url": "", "img_url": "", "tier": "gold" },
