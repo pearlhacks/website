@@ -61,7 +61,7 @@ export default function Page() {
                 <h2 className="font-sans font-bold text-2xl text-pink mb-4">Tracks</h2>
                 <p className="text-base sm:text-lg max-w-3xl mx-auto">
                   Think of Tracks as the main layers of your hackathon experience — where your project can rise to the
-                  occasion and compete for prizes. Whether you're diving in as a first-time hacker through our Beginner
+                  occasion and compete for prizes. Whether you&apos;re diving in as a first-time hacker through our Beginner
                   Track or taking full creative freedom in our General Track, these categories are where you can submit your
                   projects for official judging and prizes.
                 </p>
@@ -85,7 +85,7 @@ export default function Page() {
                     The General Track is for all hackers — from seasoned coders to
                     first-time builders — ready to cook up something creative! In this
                     open-ended track, you can bring any idea to life using software,
-                    hardware, design, or a mix of all three. You'll collaborate with
+                    hardware, design, or a mix of all three. You&apos;ll collaborate with
                     hackers of all backgrounds and interests to whip up something
                     uniquely yours.
                   </p>
@@ -112,9 +112,9 @@ export default function Page() {
                   </div>
                   <p className="text-base sm:text-lg text-brown leading-relaxed">
                     New to hackathons or computer science? The Beginner Track is
-                    your perfect starter recipe! You'll get access to beginner-friendly
+                    your perfect starter recipe! You&apos;ll get access to beginner-friendly
                     workshops, learning resources, and mentorship to help you build
-                    confidence, pick up new technical 'ingredients,' and explore how
+                    confidence, pick up new technical &apos;ingredients,&apos; and explore how
                     computing connects with your passions — from art to biology
                     and everything in between.
                   </p>
@@ -144,10 +144,10 @@ export default function Page() {
               <div className="text-center space-y-6">
                 <h2 className="font-sans font-bold text-2xl text-pink mb-4">Focus Pathways</h2>
                 <p className="text-base sm:text-lg max-w-3xl mx-auto leading-relaxed">
-                  Our <span className="font-bold">Focus Pathways</span> are like flavor add-ins — they're here to inspire your creativity and help you explore
-                  exciting new areas of tech! While these pathways don't have separate prizes, they provide specialized
+                  Our <span className="font-bold">Focus Pathways</span> are like flavor add-ins — they&apos;re here to inspire your creativity and help you explore
+                  exciting new areas of tech! While these pathways don&apos;t have separate prizes, they provide specialized
                   workshops, resources, and mentorship to help you grow new skills and bring extra flair to your projects.
-                  They're a chance to try out new 'ingredients' and see how they blend into your unique creation.
+                  They&apos;re a chance to try out new &apos;ingredients&apos; and see how they blend into your unique creation.
                 </p>
               </div>
 
@@ -169,7 +169,7 @@ export default function Page() {
                     The UX/UI Focus Pathway is for hackers who love design,
                     creativity, and user experience — the frosting that makes every
                     project beautiful and usable! Through guided workshops and
-                    hands-on sessions, you'll learn tools like Figma and explore web
+                    hands-on sessions, you&apos;ll learn tools like Figma and explore web
                     design principles to create intuitive, polished, and meaningful
                     digital experiences.
                   </p>
@@ -178,7 +178,7 @@ export default function Page() {
                       <li className="pl-2">Open to all participants interested in UX/UI, no experience needed.</li>
                       <li className="pl-2">Attend exclusive UX/UI workshops to level up your design skills.</li>
                       <li className="pl-2">You can still enter sponsor challenges and are eligible for the General Track.</li>
-                      <li className="pl-2">This pathway does not have its own prize — it's a space to learn, explore, and add a creative spark to your hack!</li>
+                      <li className="pl-2">This pathway does not have its own prize — it&apos;s a space to learn, explore, and add a creative spark to your hack!</li>
                     </ul>
                   </ProgramAccordion>
                 </div>
@@ -201,15 +201,15 @@ export default function Page() {
                     using artificial intelligence and machine learning! Experiment
                     with tools like chatbots, computer vision, or natural language
                     processing, and learn how AI can make your project smarter.
-                    You'll get the chance to explore AI responsibly and creatively
+                    You&apos;ll get the chance to explore AI responsibly and creatively
                     through dedicated workshops and mentorship.
                   </p>
                   <ProgramAccordion>
                     <ul className="list-disc pl-5 space-y-2">
                       <li className="pl-2">Projects must feature AI or machine learning as a core component (e.g., training or fine-tuning a model, integrating an API, or building an AI-driven feature).</li>
-                      <li className="pl-2">AI tools can assist your project, but shouldn't do all the 'baking' for you — the creativity is still yours!</li>
+                      <li className="pl-2">AI tools can assist your project, but shouldn&apos;t do all the &apos;baking&apos; for you — the creativity is still yours!</li>
                       <li className="pl-2">You can still enter sponsor challenges and are eligible for the General Track.</li>
-                      <li className="pl-2">This pathway does not have its own prize — it's a place to experiment and learn cutting-edge tech skills.</li>
+                      <li className="pl-2">This pathway does not have its own prize — it&apos;s a place to experiment and learn cutting-edge tech skills.</li>
                     </ul>
                   </ProgramAccordion>
                 </div>
@@ -222,7 +222,7 @@ export default function Page() {
           <div className="text-center mt-12">
             <p className="text-base sm:text-lg max-w-3xl mx-auto italic leading-relaxed text-brown">
               No matter which Track or Pathway you choose, each experience is a chance to learn something new,
-              collaborate with others, and whip up a project that's uniquely yours. So grab your apron, gather your
+              collaborate with others, and whip up a project that&apos;s uniquely yours. So grab your apron, gather your
               team, and get ready to bake up something beautiful at Pearl Hacks!
             </p>
           </div>
