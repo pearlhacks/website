@@ -19,6 +19,8 @@ jobs:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PEARLHACKS_MASTER }}
           projectId: pearlhacks-master
+          # Reviewers kept reaching the link after the 7-day default ran out.
+          expires: 14d
         env:
           FIREBASE_CLI_EXPERIMENTS: webframeworks
           NEXT_PUBLIC_WEB_API: ${{secrets.NEXT_PUBLIC_WEB_API}}
