@@ -1,12 +1,12 @@
 "use client";
-import { ClockIcon } from "@heroicons/react/24/outline";
+import { CalendarIcon, ClockIcon } from "@heroicons/react/24/outline";
 import { Navbar } from "../Navbar/Navbar";
 import { motion } from "framer-motion";
 import StarsOverlay from "./Star";
 import Image from "next/image";
 import { SecondaryButton } from "../Buttons/SecondaryButton";
 import { PrimaryButton } from "../Buttons/PrimaryButton";
-import { link_2026mailinglist, link_directorapp, link_discord_2026, register_participant, register_volunteer } from "@/utils/Urls";
+import { link_2026mailinglist, link_2027linktree, link_directorapp, link_discord_2026, register_participant, register_volunteer } from "@/utils/Urls";
 import { useState, useEffect } from "react";
 
 interface TimeLeft {
@@ -88,8 +88,8 @@ export function HeroSection() {
               </div>
               {eventStatus === "after" ? (
                 <span className="justify-center md:justify-start flex font-medium text-brown flex-row space-x-2">
-                  <ClockIcon className="w-6" />
-                  <p>Ended. Thank you for participating!</p>
+                  <CalendarIcon className="w-6" />
+                  <p>Pearl Hacks 2027 is happening Feb 13–14!</p>
                 </span>
               ) : eventStatus === "during" ? (
                 <div>
@@ -151,6 +151,11 @@ export function HeroSection() {
             </div>
               <div className="flex flex-col items-center md:items-start gap-2">
                 <div className="flex flex-wrap gap-2 justify-center md:justify-start">
+                  {eventStatus === "after" && (
+                    <SecondaryButton href={link_2027linktree}>
+                      Register for 2027
+                    </SecondaryButton>
+                  )}
                   {/* <SecondaryButton href={register_participant}>
                     HACKER REGISTRATION
                   </SecondaryButton>
